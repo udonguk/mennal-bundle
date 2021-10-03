@@ -1,0 +1,14 @@
+spring:
+  devtools:
+    restart:
+      enabled: false
+    livereload:
+      enabled: true
+  datasource:
+    driver-class-name: net.sf.log4jdbc.sql.jdbcapi.DriverSpy
+    url: jdbc:log4jdbc:postgresql://localhost:5434/mannal
+    username: mannal
+    password: 1234
+    hikari:
+      poolName: Hikari
+      auto-commit: false

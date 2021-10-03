@@ -1,0 +1,15 @@
+version: '3'
+
+services:
+  mannal-db-postgres:
+    environment:
+      POSTGRES_USER: 'postgres'
+      POSTGRES_PASSWORD: '1234'
+#      image: tuc-postgres
+    build:
+      context: ./
+      dockerfile: ./Dockerfile
+    volumes:
+      - ./data:/var/lib/postgresql/data
+    ports:
+      - 5434:5432
