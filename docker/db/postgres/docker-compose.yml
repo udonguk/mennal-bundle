@@ -5,11 +5,11 @@ services:
     environment:
       POSTGRES_USER: 'postgres'
       POSTGRES_PASSWORD: '1234'
-#      image: tuc-postgres
+      image: mannal-postgres
     build:
       context: ./
       dockerfile: ./Dockerfile
     volumes:
       - ./data:/var/lib/postgresql/data
     ports:
-      - 5434:5432
+      - 5435:5432

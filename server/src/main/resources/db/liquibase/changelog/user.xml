@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.6.xsd">
+
+    <changeSet id="user-001" author="donguk">
+        <createTable tableName="user">
+            <column name="user_id" type="${uuidType}" remarks="고유식별자 아이디" defaultValue="uuid_generate_v4()">
+                <constraints nullable="false"/>
+            </column>
+            <column name="username" type="${varcharType}(100)" remarks="사용자 이름/아이디">
+                <constraints primaryKey="true" />
+            </column>
+            <column name="password" type="${varcharType}(100)" remarks="비밀번호"/>
+            <column name="email" type="${varcharType}(255)" remarks="이메일" />
+            <column name="expired" type="char(1)" defaultValue="0" remarks="만료여부" />
+            <column name="locked" type="char(1)" defaultValue="0" remarks="잠금여부" />
+            <column name="enabled" type="char(1)" defaultValue="1" remarks="사용여부" />
+            <column name="use_yn" type="${varcharType}(1)" defaultValue="Y" remarks="사용여부(YN)"/>
+            <column name="reg_dt" type="${datetimeType}" defaultValueDate="${now}" remarks="등록일자" />
+            <column name="edit_dt" type="${datetimeType}" defaultValueDate="${now}" remarks="수정일자" />
+            <column name="del_dt" type="${datetimeType}"  remarks="삭제일자" />
+        </createTable>
+        <createIndex tableName="user" indexName="user_id_idx">
+            <column name="user_id" />
+        </createIndex>
+    </changeSet>
+
+
+</databaseChangeLog>
