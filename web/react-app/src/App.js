@@ -1,6 +1,8 @@
-import logo from './logo.svg';
+import * as React from 'react'
+// import logo from './logo.svg';
 import './App.css';
-import Users from "./User";
+// import Users from "./User";
+import {Button} from "@mui/material";
 
 function App() {
 /*
@@ -23,7 +25,7 @@ function App() {
     </div>
   );
 */
-  return <Users />
+  return <Button variant={'contained'}>Hello World</Button>
 }
 
 export default App;
