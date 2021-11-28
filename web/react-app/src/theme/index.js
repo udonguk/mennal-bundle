@@ -1,6 +1,6 @@
 import _ from 'lodash';
 import {THEMES} from "../constants";
-import {createTheme} from "@mui/material";
+import {colors, createTheme} from "@mui/material";
 
 const themesOptions = [
   {
@@ -17,13 +17,13 @@ const themesOptions = [
         main: '#2196f3',
       },
       background: {
-        default: '#282C34',
-        dark: '#1c2025',
-        paper: '#282C34'
+        default: colors.common.white,
+        dark: '#f4f6f8',
+        paper: colors.common.white
       },
       text: {
-        primary: '#e6e5e8',
-        secondary: '#adb0bb'
+        primary: colors.blueGrey[900],
+        secondary: colors.blueGrey[600]
       }
     },
   },

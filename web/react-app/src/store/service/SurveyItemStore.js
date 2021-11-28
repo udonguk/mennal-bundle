@@ -37,6 +37,16 @@ export class SurveyItemStore {
       })
   }
 
+  get checkCount(){
+    return this.surveyItems.filter(item =>
+      true === item.isChecked
+    ).length
+  }
+
+  get itemCount(){
+    return this.surveyItems.length
+  }
+
 //   axios.get(`${url}?${paramParser(sortedParams)}`)
 // .then(res => {
 // runInAction(() => {

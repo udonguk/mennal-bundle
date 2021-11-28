@@ -1,16 +1,16 @@
 import {Button, Card, CardActions, CardContent, Typography} from "@mui/material";
 import PropTypes from 'prop-types';
-import React, {useContext} from "react";
-import {GlobalStoreContext} from "../../../../store/GlobalStoreProvider";
+import React from "react";
 import {observer} from "mobx-react";
 
 const SurveyItem = observer(({item}) => {
-  const store = useContext(GlobalStoreContext);
-  const surveyItemStore = store.surveyItemStore
 
-
-  const yesClickHandler =  () => {
+  const yesClickHandler = () => {
     item.setStatus('YES')
+  }
+
+  const noClickHandler = () => {
+    item.setStatus('NO')
   }
 
   return (
@@ -24,11 +24,14 @@ const SurveyItem = observer(({item}) => {
         <Button
           variant={'contained'}
           onClick={yesClickHandler}
-          color={"success"}
+          color={'YES' === item.status ? 'success' : 'secondary'}
           fullWidth>
           YES
         </Button>
-        <Button variant={'contained'} fullWidth>
+        <Button variant={'contained'}
+                onClick={noClickHandler}
+                color={'NO' === item.status ? 'success' : 'secondary'}
+                fullWidth>
           NO
         </Button>
       </CardActions>
