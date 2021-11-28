@@ -5,11 +5,15 @@ import App from './App';
 import reportWebVitals from './reportWebVitals';
 import {BrowserRouter} from "react-router-dom";
 
+
 ReactDOM.render(
+
   <React.StrictMode>
-    <BrowserRouter>
-      <App />
-    </BrowserRouter>
+    {/*<MobxContext.Provider value={new RootStore()}>*/}
+      <BrowserRouter>
+        <App />
+      </BrowserRouter>
+    {/*</MobxContext.Provider>*/}
   </React.StrictMode>,
   document.getElementById('root')
 );
