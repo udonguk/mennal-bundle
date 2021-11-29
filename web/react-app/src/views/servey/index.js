@@ -1,15 +1,17 @@
-import React, {useContext} from "react";
+import React, {useContext, useState} from "react";
 import SurveyItem from "./component/ServeyItem";
-import {Box, Button, Stack} from "@mui/material";
+import {Box, Button, Card, CardHeader, Modal, Stack, Typography} from "@mui/material";
 import {GlobalStoreContext} from "../../store/GlobalStoreProvider";
 import {observer} from "mobx-react";
 import LinearProgressWithLabel from "../../components/LinearProgressWithLabel";
+import {Link, useLocation} from "react-router-dom";
 
 const Survey = observer(() => {
   // const surveyItems = getSurveyItems();
   const store = useContext(GlobalStoreContext);
   const surveyItemStore = store.surveyItemStore
-  // let location = useLocation();
+  let location = useLocation();
+  let [resultIsOpen, setResultIsOpen] = useState(false);
 
   return (
     <Box>
@@ -35,10 +37,19 @@ const Survey = observer(() => {
       </Stack>
       <Button variant={'contained'}
               disabled={100 !== surveyItemStore.progressPercent}
+              onClick={() => setResultIsOpen(true)}
               fullWidth
       >
         결과보기
       </Button>
+      <Modal
+        open={resultIsOpen}
+        onClose={() => setResultIsOpen(false)}
+      >
+        <Card>
+          <CardHeader title={"결과"}/>
+        </Card>
+      </Modal>
     </Box>
   )
 })
