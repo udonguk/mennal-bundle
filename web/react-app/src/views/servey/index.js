@@ -9,7 +9,7 @@ const Survey = observer(() => {
   // const surveyItems = getSurveyItems();
   const store = useContext(GlobalStoreContext);
   const surveyItemStore = store.surveyItemStore
-  console.debug(surveyItemStore)
+  // let location = useLocation();
 
   return (
     <Box>
@@ -24,7 +24,7 @@ const Survey = observer(() => {
         }}
       >
         <LinearProgressWithLabel
-          value ={surveyItemStore.checkCount}
+          value ={surveyItemStore.progressPercent}
           info ={`${surveyItemStore.checkCount} / ${surveyItemStore.itemCount}`}
         />
       </Box>
@@ -34,6 +34,7 @@ const Survey = observer(() => {
         )}
       </Stack>
       <Button variant={'contained'}
+              disabled={100 !== surveyItemStore.progressPercent}
               fullWidth
       >
         결과보기

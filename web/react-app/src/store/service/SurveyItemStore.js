@@ -47,6 +47,10 @@ export class SurveyItemStore {
     return this.surveyItems.length
   }
 
+  get progressPercent() {
+    return this.checkCount/this.itemCount * 100
+  }
+
 //   axios.get(`${url}?${paramParser(sortedParams)}`)
 // .then(res => {
 // runInAction(() => {
