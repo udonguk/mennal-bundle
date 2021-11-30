@@ -9,6 +9,8 @@ import GlobalStoreProvider from "./store/GlobalStoreProvider";
 import {createThemeByConfig} from "./theme";
 import {THEMES} from "./constants";
 import {useMemo} from "react";
+import {Helmet} from "react-helmet";
+import GoogleAnalytics from "./components/GoogleAnalytics";
 
 function App() {
   let location = useLocation();
@@ -23,6 +25,10 @@ function App() {
         theme: THEMES.LIGHT
       })}>
         <CssBaseline />
+        <Helmet>
+          <title>맨날</title>
+        </Helmet>
+        <GoogleAnalytics />
         <Routes>
           <Route path={"/"} element={<DocsLayout />}>
             <Route path={"/survey"}
