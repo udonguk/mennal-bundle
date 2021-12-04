@@ -1,9 +1,10 @@
 import {makeAutoObservable, reaction} from "mobx";
 
 export class SurveyItem {
-  type = ""
   id = ""
-  order = ""
+  category = ""
+  subCategory = ""
+  num = ""
   title = ""
   result = ""
 
@@ -17,9 +18,10 @@ export class SurveyItem {
     makeAutoObservable(this)
     this.store = store
 
-    this.type = item.type
     this.id = item.id
-    this.order = item.order
+    this.category = item.type
+    this.subCategory = item.type
+    this.num = item.order
     this.title = item.title
     this.result = item.result
 

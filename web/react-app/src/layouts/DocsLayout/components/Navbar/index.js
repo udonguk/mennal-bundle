@@ -13,7 +13,7 @@ import {
   Typography
 } from "@mui/material";
 import MenuIcon from "@mui/icons-material/Menu";
-import {Outlet} from "react-router-dom";
+import {Link, Outlet} from "react-router-dom";
 
 
 const Navbar = () => {
@@ -56,10 +56,18 @@ const Navbar = () => {
                 role={'presentation'}
               >
                 <List>
-                  {['테스트1', '테스트2', '테스트3', '테스트4'].map((item) => {
+                  {[
+                    {title: '학습의지', category: '02'},
+                    {title: '학습행동', category: '04'}
+                  ].map((item) => {
                     return (
-                      <ListItem button key={item}>
-                        <ListItemText primary={item} />
+                      <ListItem
+                        button
+                        key={item.category}
+                        component={Link}
+                        to={`/survey/${item.category}`}
+                      >
+                        <ListItemText primary={item.title} />
                       </ListItem>
                     )
                   })}
