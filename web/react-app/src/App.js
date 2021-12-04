@@ -1,7 +1,7 @@
 import * as React from 'react'
 import './App.css';
 import DocsLayout from "./layouts/DocsLayout";
-import {Route, Routes, useLocation} from "react-router-dom";
+import {Link, Route, Routes, useLocation} from "react-router-dom";
 import Intro from "./views/intro";
 import {Box, CssBaseline, ThemeProvider} from "@mui/material";
 import Survey from "./views/servey";
@@ -31,12 +31,12 @@ function App() {
         <GoogleAnalytics />
         <Routes>
           <Route path={"/"} element={<DocsLayout />}>
-            <Route path={"/survey"}
-                   element={<Survey />} />
             <Route
               index
               element={<Intro />}
             />
+            <Route path={"/survey"}
+                   element={<Survey />} />
             <Route
               path={'*'}
               element={
@@ -46,6 +46,13 @@ function App() {
               }
             />
           </Route>
+          <Route path={"/test"}
+                 element={
+                   <Box>
+                     test
+                   </Box>
+                 }
+          />
         </Routes>
 
         {/* Show the modal when a `backgroundLocation` is set */}
