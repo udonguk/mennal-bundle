@@ -3,34 +3,34 @@ import PropTypes from 'prop-types';
 import React from "react";
 import {observer} from "mobx-react";
 
-const SurveyItem = observer(({item}) => {
+const SurveyItem = observer(({item, index}) => {
 
   const yesClickHandler = () => {
-    item.setStatus('YES')
+    item.setStatus('Y')
   }
 
   const noClickHandler = () => {
-    item.setStatus('NO')
+    item.setStatus('N')
   }
 
   return (
     <Card>
       <CardContent>
         <Typography>
-          {item.title}
+          {`${index + 1}. ${item.title}`}
         </Typography>
       </CardContent>
       <CardActions>
         <Button
           variant={'contained'}
           onClick={yesClickHandler}
-          color={'YES' === item.status ? 'success' : 'secondary'}
+          color={'Y' === item.status ? 'success' : 'secondary'}
           fullWidth>
           YES
         </Button>
         <Button variant={'contained'}
                 onClick={noClickHandler}
-                color={'NO' === item.status ? 'success' : 'secondary'}
+                color={'N' === item.status ? 'success' : 'secondary'}
                 fullWidth>
           NO
         </Button>

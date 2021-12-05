@@ -2,6 +2,7 @@ import {makeAutoObservable, runInAction} from "mobx";
 import axios from "axios";
 import {getSurveyItems} from "../../dump/surveyItemDump";
 import {SurveyItem} from "../domain/SurveyItem";
+import _ from "lodash";
 
 export class SurveyItemStore {
   parent
@@ -11,13 +12,21 @@ export class SurveyItemStore {
   constructor(parent) {
     makeAutoObservable(this)
     this.parent = parent
-    this.loadSurveyItems()
+    this.loadSurveyItemsByCategory()
   }
 
-  loadSurveyItems() {
+  loadSurveyItemsByCategory(param) {
     this.isLoading = true;
     runInAction(() => {
-      getSurveyItems().forEach(item => this.updateSurveyItemFromServer(item))
+      this.surveyItems = [];
+      // todo 서버 호출 방식으로 변경되어야 함
+      let filteredSurveyItems = [];
+      if(_.isNil(param)){
+        filteredSurveyItems = getSurveyItems();
+      } else {
+        filteredSurveyItems = getSurveyItems().filter(item => param === item.category);
+      }
+      filteredSurveyItems.forEach(item => this.updateSurveyItemFromServer(item))
       this.isLoading = false
     })
   }

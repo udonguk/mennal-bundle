@@ -19,9 +19,9 @@ export class SurveyItem {
     this.store = store
 
     this.id = item.id
-    this.category = item.type
-    this.subCategory = item.type
-    this.num = item.order
+    this.category = item.category
+    this.subCategory = item.subCategory
+    this.num = item.num
     this.title = item.title
     this.result = item.result
 

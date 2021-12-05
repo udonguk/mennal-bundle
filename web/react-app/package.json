@@ -33,7 +33,7 @@
     "postbuild": "react-snap"
   },
   "reactSnap": {
-    "include" : ["/", "/survey"]
+    "include" : ["/", "/survey", "/servery/02", "/servery/04"]
   },
   "eslintConfig": {
     "extends": [

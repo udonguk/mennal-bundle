@@ -11,6 +11,7 @@ import {THEMES} from "./constants";
 import {useMemo} from "react";
 import {Helmet} from "react-helmet";
 import GoogleAnalytics from "./components/GoogleAnalytics";
+import SurveyItems from "./views/servey/SurveyItems";
 
 function App() {
   let location = useLocation();
@@ -35,8 +36,9 @@ function App() {
               index
               element={<Intro />}
             />
-            <Route path={"/survey"}
-                   element={<Survey />} />
+            <Route path={"survey"} element={<Survey />} >
+              <Route path={":surveyCategoryCode"} element={<SurveyItems />} />
+            </Route>
             <Route
               path={'*'}
               element={
