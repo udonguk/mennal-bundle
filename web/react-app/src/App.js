@@ -1,17 +1,19 @@
 import * as React from 'react'
+import {useMemo} from 'react'
 import './App.css';
 import DocsLayout from "./layouts/DocsLayout";
-import {Link, Route, Routes, useLocation} from "react-router-dom";
+import {Route, Routes, useLocation} from "react-router-dom";
 import Intro from "./views/intro";
 import {Box, CssBaseline, ThemeProvider} from "@mui/material";
 import Survey from "./views/servey";
 import GlobalStoreProvider from "./store/GlobalStoreProvider";
 import {createThemeByConfig} from "./theme";
 import {THEMES} from "./constants";
-import {useMemo} from "react";
 import {Helmet} from "react-helmet";
 import GoogleAnalytics from "./components/GoogleAnalytics";
 import SurveyItems from "./views/servey/SurveyItems";
+import Result from "./views/result";
+
 
 function App() {
   let location = useLocation();
@@ -39,6 +41,7 @@ function App() {
             <Route path={"survey"} element={<Survey />} >
               <Route path={":surveyCategoryCode"} element={<SurveyItems />} />
             </Route>
+            <Route path={"/result"} element={<Result />} />
             <Route
               path={'*'}
               element={
@@ -48,6 +51,7 @@ function App() {
               }
             />
           </Route>
+
           <Route path={"/test"}
                  element={
                    <Box>

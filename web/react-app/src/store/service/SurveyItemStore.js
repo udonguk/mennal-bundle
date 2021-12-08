@@ -8,6 +8,10 @@ export class SurveyItemStore {
   parent
   surveyItems = []
   isLoading = true
+  isResultLoading = false;
+  result = {
+    'score': []
+  }
 
   constructor(parent) {
     makeAutoObservable(this)
@@ -20,7 +24,7 @@ export class SurveyItemStore {
     runInAction(() => {
       this.surveyItems = [];
       // todo 서버 호출 방식으로 변경되어야 함
-      let filteredSurveyItems = [];
+      let filteredSurveyItems;
       if(_.isNil(param)){
         filteredSurveyItems = getSurveyItems();
       } else {
@@ -29,6 +33,26 @@ export class SurveyItemStore {
       filteredSurveyItems.forEach(item => this.updateSurveyItemFromServer(item))
       this.isLoading = false
     })
+  }
+
+  updateSurveyItemsToServer() {
+    this.isResultLoading = true;
+    setTimeout(() => {
+      this.result.score = [
+        {
+          "faction": "학습의지",
+          "chardonay": 31,
+        },
+        {
+          "faction": "학습행동",
+          "chardonay": 40,
+        },
+        {
+          "faction": "학습신념",
+          "chardonay": 34,
+        }]
+      this.isResultLoading = false;
+    }, 1000);
   }
 
   updateSurveyItemFromServer(item) {

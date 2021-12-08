@@ -8,6 +8,8 @@
     "@mui/icons-material": "^5.0.5",
     "@mui/material": "^5.0.6",
     "@mui/styled-engine-sc": "^5.0.4",
+    "@nivo/core": "^0.74.0",
+    "@nivo/radar": "^0.74.0",
     "@testing-library/jest-dom": "^5.11.4",
     "@testing-library/react": "^11.1.0",
     "@testing-library/user-event": "^12.1.10",
@@ -33,7 +35,12 @@
     "postbuild": "react-snap"
   },
   "reactSnap": {
-    "include" : ["/", "/survey", "/servery/02", "/servery/04"]
+    "include": [
+      "/",
+      "/survey",
+      "/servery/02",
+      "/servery/04"
+    ]
   },
   "eslintConfig": {
     "extends": [
