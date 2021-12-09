@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.6.xsd">
+
+    <changeSet id="survey_category-001" author="donguk">
+        <createTable tableName="survey_category">
+            <column name="survey_category_id" type="${uuidType}" remarks="고유식별자 아이디" defaultValue="uuid_generate_v4()">
+                <constraints primaryKey="true" />
+            </column>
+            <column name="title" type="${varcharType}(100)" remarks="제목">
+                <constraints nullable="false"/>
+            </column>
+            <column name="use_yn" type="${varcharType}(1)" defaultValue="Y" remarks="사용여부(YN)"/>
+            <column name="reg_dt" type="${datetimeType}" defaultValueDate="${now}" remarks="등록일자" />
+            <column name="edit_dt" type="${datetimeType}" defaultValueDate="${now}" remarks="수정일자" />
+            <column name="del_dt" type="${datetimeType}"  remarks="삭제일자" />
+        </createTable>
+    </changeSet>
+
+    <changeSet id="survey_category_data-001" author="donguk" context="dev">
+        <loadData tableName="survey_category" file="db/liquibase/data/survey_category" separator="|">
+            <column name="survey_category_id" header="survey_category_id" />
+            <column name="title" header="title" />
+            <column name="use_yn" header="use_yn" />
+            <column name="reg_dt" header="reg_dt" />
+            <column name="edit_dt" header="edit_dt" />
+            <column name="del_dt" header="del_dt" />
+        </loadData>
+    </changeSet>
+
+
+
+</databaseChangeLog>
