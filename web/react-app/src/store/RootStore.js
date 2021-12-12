@@ -1,13 +1,13 @@
+import React from "react";
 import {SurveyItemStore} from "./service/SurveyItemStore";
+import {SurveyCategoryStore} from "./service/SurveyCategoryStore";
 
-export default class RootStore {
-  surveyItemStore
+class RootStore {
   constructor() {
-    console.debug('RootStore cons')
     this.surveyItemStore = new SurveyItemStore(this)
-  }
-
-  get stores(){
-    return {...this.surveyItemStore}
+    this.surveyCategoryStore = new SurveyCategoryStore(this)
   }
 }
+
+export const StoresContext = React.createContext(new RootStore());
+export const useStores = () => React.useContext(StoresContext);

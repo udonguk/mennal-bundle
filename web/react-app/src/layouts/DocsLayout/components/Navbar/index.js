@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, {useContext, useState} from "react";
 import {
   AppBar,
   Box,
@@ -14,15 +14,20 @@ import {
 } from "@mui/material";
 import MenuIcon from "@mui/icons-material/Menu";
 import {Link, Outlet} from "react-router-dom";
+import {observer} from "mobx-react";
+import {StoresContext} from "../../../../store/RootStore";
 
 
-const Navbar = () => {
-  const [menuIsOn, setMenuIsOn] = useState(false)
+const Navbar = observer(() => {
+    const store = useContext(StoresContext);
+    const surveyCategoryStore = store.surveyCategoryStore;
 
-  const Offset = styled('div')(({theme}) => theme.mixins.toolbar);
+    const [menuIsOn, setMenuIsOn] = useState(false)
 
-  return (
-    <Box sx={{ flexGrow: 1 }}>
+    const Offset = styled('div')(({theme}) => theme.mixins.toolbar);
+
+    return (
+      <Box sx={{ flexGrow: 1 }}>
         <AppBar enableColorOnDark position="fixed">
           <Toolbar>
             <IconButton
@@ -56,16 +61,13 @@ const Navbar = () => {
                 role={'presentation'}
               >
                 <List>
-                  {[
-                    {title: '학습의지', category: '02'},
-                    {title: '학습행동', category: '04'}
-                  ].map((item) => {
+                  {surveyCategoryStore.surveyCategories.map((item) => {
                     return (
                       <ListItem
                         button
-                        key={item.category}
+                        key={item.id}
                         component={Link}
-                        to={`/survey/${item.category}`}
+                        to={`/survey/${item.code}`}
                       >
                         <ListItemText primary={item.title} />
                       </ListItem>
@@ -77,11 +79,11 @@ const Navbar = () => {
           </Toolbar>
         </AppBar>
         <Offset />
-      <Container>
-        <Outlet />
-      </Container>
-    </Box>
-  )
-}
-
+        <Container>
+          <Outlet />
+        </Container>
+      </Box>
+    )
+  }
+)
 export default Navbar;

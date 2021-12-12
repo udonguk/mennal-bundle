@@ -1,13 +1,14 @@
 import React, {useContext} from "react";
 import {Box, Button} from "@mui/material";
-import {GlobalStoreContext} from "../../store/GlobalStoreProvider";
 import {observer} from "mobx-react";
 import {Outlet, useNavigate} from "react-router-dom";
 import LinearProgressWithLabel from "../../components/LinearProgressWithLabel";
+import {StoresContext} from "../../store/RootStore";
 
 const Survey = observer(() => {
   const navigate = useNavigate();
-  const store = useContext(GlobalStoreContext);
+  // const store = useContext(GlobalStoreContext);
+  const store = useContext(StoresContext);
   const surveyItemStore = store.surveyItemStore
 
   const showResultOnClick = () => {

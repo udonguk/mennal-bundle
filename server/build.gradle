@@ -21,6 +21,7 @@ repositories {
 
 ext {
     set('snippetsDir', file("build/generated-snippets"))
+    queryDslVersion = '4.3.1'
 }
 
 dependencies {
@@ -36,12 +37,28 @@ dependencies {
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
     testImplementation 'org.springframework.restdocs:spring-restdocs-mockmvc'
     testImplementation 'org.springframework.security:spring-security-test'
-    compileOnly "org.bgee.log4jdbc-log4j2:log4jdbc-log4j2-jdbc4.1:1.16"
+    implementation "org.bgee.log4jdbc-log4j2:log4jdbc-log4j2-jdbc4.1:1.16"
 
-    runtimeOnly "com.zaxxer:HikariCP:3.4.5"
+    runtimeOnly "com.zaxxer:HikariCP:5.0.0"
 
-    runtimeOnly "org.yaml:snakeyaml:1.23"
+    runtimeOnly "org.yaml:snakeyaml:1.29"
     runtimeOnly "org.postgresql:postgresql"
+
+    // QueryDSL
+    implementation "com.querydsl:querydsl-jpa:${queryDslVersion}"
+    annotationProcessor(
+            "javax.persistence:javax.persistence-api",
+            "javax.annotation:javax.annotation-api",
+            "com.querydsl:querydsl-apt:${queryDslVersion}:jpa")
+}
+
+// QueryDSL
+sourceSets {
+    main {
+        java {
+            srcDirs = ["$projectDir/src/main/java", "$projectDir/build/generated"]
+        }
+    }
 }
 
 test {

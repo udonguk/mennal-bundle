@@ -23,5 +23,15 @@ spring:
         show_sql: true
         temp:
           use_jdbc_metadata_defaults: false
-  liquibase:
-    change-log: classpath:db/liquibase/db.changelog-master.xml
+#  liquibase:
+#    change-log: classpath:db/liquibase/db.changelog-master.xml
+
+test:
+  datasource:
+    driver-class-name: org.postgresql.Driver
+    url: jdbc:log4jdbc:postgresql://localhost:5435/mannal
+    username: mannal
+    password: 1234
+    hikari:
+      poolName: Hikari
+      auto-commit: false

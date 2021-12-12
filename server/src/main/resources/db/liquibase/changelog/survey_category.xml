@@ -12,6 +12,9 @@
             <column name="title" type="${varcharType}(100)" remarks="제목">
                 <constraints nullable="false"/>
             </column>
+            <column name="code" type="${varcharType}(30)" remarks="코드">
+                <constraints nullable="false"/>
+            </column>
             <column name="use_yn" type="${varcharType}(1)" defaultValue="Y" remarks="사용여부(YN)"/>
             <column name="reg_dt" type="${datetimeType}" defaultValueDate="${now}" remarks="등록일자" />
             <column name="edit_dt" type="${datetimeType}" defaultValueDate="${now}" remarks="수정일자" />
@@ -23,6 +26,7 @@
         <loadData tableName="survey_category" file="db/liquibase/data/survey_category" separator="|">
             <column name="survey_category_id" header="survey_category_id" />
             <column name="title" header="title" />
+            <column name="code" header="code" />
             <column name="use_yn" header="use_yn" />
             <column name="reg_dt" header="reg_dt" />
             <column name="edit_dt" header="edit_dt" />
