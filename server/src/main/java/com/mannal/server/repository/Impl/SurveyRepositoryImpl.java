@@ -2,29 +2,32 @@ package com.mannal.server.repository.Impl;
 
 
 import com.mannal.server.entity.survey.SurveyCategory;
-import com.mannal.server.repository.SurveyCategoryRepository;
+import com.mannal.server.entity.survey.SurveyEntity;
+import com.mannal.server.repository.SurveyRepository;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import org.springframework.data.jpa.repository.support.QuerydslRepositorySupport;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.UUID;
 
-import static com.mannal.server.entity.survey.QSurveyCategory.surveyCategory;
+import static com.mannal.server.entity.survey.QSurveyEntity.surveyEntity;
 
-@Repository("surveyCategory")
-public class SurveyCategoryImpl extends QuerydslRepositorySupport implements SurveyCategoryRepository{
+@Repository("surveyRepository")
+public class SurveyRepositoryImpl extends QuerydslRepositorySupport implements SurveyRepository {
 
     private final JPAQueryFactory jpaQueryFactory;
 
-    public SurveyCategoryImpl(JPAQueryFactory jpaQueryFactory) {
+    public SurveyRepositoryImpl(JPAQueryFactory jpaQueryFactory) {
         super(SurveyCategory.class);
         this.jpaQueryFactory = jpaQueryFactory;
     }
 
     @Override
-    public List<SurveyCategory> findAllSurveyCategory() {
-        return jpaQueryFactory.select(surveyCategory)
-                .from(surveyCategory)
+    public List<SurveyEntity> findSurvey(UUID categoryId) {
+        return jpaQueryFactory.select(surveyEntity)
+                .from(surveyEntity)
+                .where(surveyEntity.id.eq(categoryId))
                 .fetch();
     }
 

@@ -19,20 +19,27 @@ export class SurveyItemStore {
     this.loadSurveyItemsByCategory()
   }
 
-  loadSurveyItemsByCategory(param) {
+  loadSurveyItemsByCategory(category) {
     this.isLoading = true;
     runInAction(() => {
       this.surveyItems = [];
       // todo 서버 호출 방식으로 변경되어야 함
       let filteredSurveyItems;
-      if(_.isNil(param)){
+      this.getSurveyItems2(category)
+      if(_.isNil(category)){
         filteredSurveyItems = getSurveyItems();
       } else {
-        filteredSurveyItems = getSurveyItems().filter(item => param === item.category);
+        filteredSurveyItems = getSurveyItems().filter(item => param.code === item.category);
       }
       filteredSurveyItems.forEach(item => this.updateSurveyItemFromServer(item))
       this.isLoading = false
     })
+  }
+
+  getSurveyItems2(id){
+    console.debug('ididid', id)
+
+
   }
 
   updateSurveyItemsToServer() {

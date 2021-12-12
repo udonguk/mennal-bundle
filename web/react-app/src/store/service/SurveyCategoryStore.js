@@ -1,6 +1,7 @@
 import {makeAutoObservable, runInAction} from "mobx";
 import axios from "axios";
 import _ from "lodash";
+import {SurveyCategory} from "../domain/SurveyCategory";
 
 // import {getSurveyCategories} from "../../dump/surveyCategoryDump";
 
@@ -23,14 +24,24 @@ export class SurveyCategoryStore {
     this.isLoading = true;
     runInAction(async () => {
       0 === this.surveyCategories.length && this.getSurveyCategories((res) => {
-        this.surveyCategories =  res.data;
+        this.surveyCategories = [];
+        res.data.forEach(item => {
+          this.setCategoryFromServer(item);
+        })
         this.isLoading = false
       });
     })
   }
 
+  setCategoryFromServer(item) {
+    let categoryItem;
+    if (!categoryItem) {
+      categoryItem = new SurveyCategory(this, item);
+      this.surveyCategories.push(categoryItem);
+    }
+  }
+
   getSurveyCategories(func) {
-    console.debug('aa')
     axios.get(`api/survey/category`)
       .then(res => {
         func(res)

@@ -19,7 +19,7 @@ const SurveyItems = observer(() => {
 
   useLayoutEffect(() => {
     const categoryId = surveyCategoryStore.getSurveyCategory(getCategory())
-    surveyItemStore.loadSurveyItemsByCategory(getCategory())
+    surveyItemStore.loadSurveyItemsByCategory(categoryId)
   }, [location])
 
   return (
