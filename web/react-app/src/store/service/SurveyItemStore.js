@@ -3,6 +3,7 @@ import axios from "axios";
 import {getSurveyItems} from "../../dump/surveyItemDump";
 import {SurveyItem} from "../domain/SurveyItem";
 import _ from "lodash";
+import axiosToApi from "../../config/axios/api";
 
 export class SurveyItemStore {
   parent
@@ -26,20 +27,26 @@ export class SurveyItemStore {
       // todo 서버 호출 방식으로 변경되어야 함
       let filteredSurveyItems;
       this.getSurveyItems2(category)
+
       if(_.isNil(category)){
         filteredSurveyItems = getSurveyItems();
       } else {
-        filteredSurveyItems = getSurveyItems().filter(item => param.code === item.category);
+        filteredSurveyItems = getSurveyItems().filter(item => category.code === item.category);
       }
       filteredSurveyItems.forEach(item => this.updateSurveyItemFromServer(item))
       this.isLoading = false
     })
   }
 
-  getSurveyItems2(id){
-    console.debug('ididid', id)
+  getSurveyItems2(category){
+    if(_.isNil(category) || _.isNil(category.id)){
+      return;
+    }
 
-
+    axiosToApi.get(`/survey/${category.id}`)
+      .then(res => {
+        console.debug(res)
+      })
   }
 
   updateSurveyItemsToServer() {

@@ -1,6 +1,5 @@
 package com.mannal.server.repository.Impl;
 
-import com.mannal.server.config.TestConfig;
 import com.mannal.server.entity.survey.QSurveyEntity;
 import com.mannal.server.entity.survey.SurveyEntity;
 import com.querydsl.jpa.impl.JPAQuery;
@@ -8,7 +7,6 @@ import org.junit.jupiter.api.Test;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.liquibase.LiquibaseAutoConfiguration;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.context.annotation.Import;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -22,7 +20,6 @@ import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 @SpringBootTest
 @Transactional
 @EnableAutoConfiguration(exclude = {LiquibaseAutoConfiguration.class})
-//@Import(TestConfig.class)
 class SurveyRepositoryImplTest {
 
     @PersistenceUnit

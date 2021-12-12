@@ -1,7 +1,5 @@
 package com.mannal.server.controller.survey;
 
-import com.fasterxml.jackson.annotation.JsonIdentityInfo;
-import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import com.mannal.server.entity.survey.SurveyEntity;
 import com.mannal.server.service.survey.SurveyService;
 import org.springframework.http.ResponseEntity;
