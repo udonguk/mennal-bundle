@@ -1,6 +1,6 @@
 package com.mannal.server.controller.survey;
 
-import com.mannal.server.entity.survey.SurveyCategory;
+import com.mannal.server.entity.survey.SurveyCategoryEntity;
 import com.mannal.server.service.survey.SurveyService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -20,7 +20,7 @@ public class surveyCategoryController {
     }
 
     @GetMapping
-    public ResponseEntity<List<SurveyCategory>> list(){
+    public ResponseEntity<List<SurveyCategoryEntity>> list(){
         return ResponseEntity.ok(surveyService.getAllSurveys());
     }
 }

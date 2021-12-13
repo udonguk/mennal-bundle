@@ -1,7 +1,7 @@
 package com.mannal.server.repository.Impl;
 
 
-import com.mannal.server.entity.survey.SurveyCategory;
+import com.mannal.server.entity.survey.SurveyCategoryEntity;
 import com.mannal.server.entity.survey.SurveyEntity;
 import com.mannal.server.repository.SurveyRepository;
 import com.querydsl.jpa.impl.JPAQueryFactory;
@@ -19,7 +19,7 @@ public class SurveyRepositoryImpl extends QuerydslRepositorySupport implements S
     private final JPAQueryFactory jpaQueryFactory;
 
     public SurveyRepositoryImpl(JPAQueryFactory jpaQueryFactory) {
-        super(SurveyCategory.class);
+        super(SurveyCategoryEntity.class);
         this.jpaQueryFactory = jpaQueryFactory;
     }
 

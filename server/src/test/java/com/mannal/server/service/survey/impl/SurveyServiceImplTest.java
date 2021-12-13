@@ -1,6 +1,6 @@
 package com.mannal.server.service.survey.impl;
 
-import com.mannal.server.entity.survey.SurveyCategory;
+import com.mannal.server.entity.survey.SurveyCategoryEntity;
 import com.mannal.server.repository.SurveyCategoryRepository;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -30,30 +30,30 @@ class SurveyServiceImplTest {
     @Test
     public void getAllSurveys() {
         // given
-        SurveyCategory surveyCategory1 = SurveyCategory.builder()
+        SurveyCategoryEntity surveyCategoryEntity1 = SurveyCategoryEntity.builder()
                 .id(UUID.randomUUID())
                 .title("TEST_surveyCategory1")
                 .regDt(Date.valueOf(LocalDate.now()))
                 .editDt(Date.valueOf(LocalDate.now()))
                 .build();
 
-        SurveyCategory surveyCategory2 = SurveyCategory.builder()
+        SurveyCategoryEntity surveyCategoryEntity2 = SurveyCategoryEntity.builder()
                 .id(UUID.randomUUID())
                 .title("TEST_surveyCategory2")
                 .regDt(Date.valueOf(LocalDate.now()))
                 .editDt(Date.valueOf(LocalDate.now()))
                 .build();
 
-        List<SurveyCategory> surveyCategoryList = new ArrayList<>();
-        surveyCategoryList.add(surveyCategory1);
-        surveyCategoryList.add(surveyCategory2);
+        List<SurveyCategoryEntity> surveyCategoryEntityList = new ArrayList<>();
+        surveyCategoryEntityList.add(surveyCategoryEntity1);
+        surveyCategoryEntityList.add(surveyCategoryEntity2);
 
         // mocking
         given(surveyCategoryRepository.findAllSurveyCategory())
-                .willReturn(surveyCategoryList);
+                .willReturn(surveyCategoryEntityList);
 
         // when
-        List<SurveyCategory> surveyCategoriesResult = surveyService.getAllSurveys();
+        List<SurveyCategoryEntity> surveyCategoriesResult = surveyService.getAllSurveys();
 
         // then
         assertThat(surveyCategoriesResult.size()).isEqualTo(2);

@@ -1,6 +1,6 @@
 package com.mannal.server.service.survey.impl;
 
-import com.mannal.server.entity.survey.SurveyCategory;
+import com.mannal.server.entity.survey.SurveyCategoryEntity;
 import com.mannal.server.entity.survey.SurveyEntity;
 import com.mannal.server.repository.SurveyCategoryRepository;
 import com.mannal.server.repository.SurveyRepository;
@@ -23,7 +23,7 @@ public class SurveyServiceImpl implements SurveyService {
     }
 
     @Override
-    public List<SurveyCategory> getAllSurveys() {
+    public List<SurveyCategoryEntity> getAllSurveys() {
         return surveyCategoryRepository.findAllSurveyCategory();
     }
 

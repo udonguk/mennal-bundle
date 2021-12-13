@@ -1,7 +1,7 @@
 package com.mannal.server.repository.Impl;
 
-import com.mannal.server.entity.survey.QSurveyCategory;
-import com.mannal.server.entity.survey.SurveyCategory;
+import com.mannal.server.entity.survey.QSurveyCategoryEntity;
+import com.mannal.server.entity.survey.SurveyCategoryEntity;
 import com.querydsl.jpa.impl.JPAQuery;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
@@ -22,7 +22,7 @@ import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 @Transactional
 @EnableAutoConfiguration(exclude = {LiquibaseAutoConfiguration.class})
 //@Import(TestConfig.class)
-class SurveyCategoryRepositoryImplTest {
+class SurveyCategoryEntityRepositoryImplTest {
     @PersistenceUnit
     private EntityManagerFactory factory;
 
@@ -38,9 +38,9 @@ class SurveyCategoryRepositoryImplTest {
     @Test
     void findAllSurveyCategory() {
         EntityManager em = factory.createEntityManager();
-        JPAQuery<SurveyCategory> jpaQuery = new JPAQuery<>(em);
-        QSurveyCategory qSurveyCategory = QSurveyCategory.surveyCategory;
-        List<SurveyCategory> surveyCategories = jpaQuery.select(qSurveyCategory)
+        JPAQuery<SurveyCategoryEntity> jpaQuery = new JPAQuery<>(em);
+        QSurveyCategoryEntity qSurveyCategory = QSurveyCategoryEntity.surveyCategoryEntity;
+        List<SurveyCategoryEntity> surveyCategories = jpaQuery.select(qSurveyCategory)
                 .from(qSurveyCategory)
                 .fetch();
 

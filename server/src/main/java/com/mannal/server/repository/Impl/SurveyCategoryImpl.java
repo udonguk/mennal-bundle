@@ -1,7 +1,7 @@
 package com.mannal.server.repository.Impl;
 
 
-import com.mannal.server.entity.survey.SurveyCategory;
+import com.mannal.server.entity.survey.SurveyCategoryEntity;
 import com.mannal.server.repository.SurveyCategoryRepository;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import org.springframework.data.jpa.repository.support.QuerydslRepositorySupport;
@@ -9,7 +9,7 @@ import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
-import static com.mannal.server.entity.survey.QSurveyCategory.surveyCategory;
+import static com.mannal.server.entity.survey.QSurveyCategoryEntity.surveyCategoryEntity;
 
 @Repository("surveyCategory")
 public class SurveyCategoryImpl extends QuerydslRepositorySupport implements SurveyCategoryRepository{
@@ -17,14 +17,14 @@ public class SurveyCategoryImpl extends QuerydslRepositorySupport implements Sur
     private final JPAQueryFactory jpaQueryFactory;
 
     public SurveyCategoryImpl(JPAQueryFactory jpaQueryFactory) {
-        super(SurveyCategory.class);
+        super(SurveyCategoryEntity.class);
         this.jpaQueryFactory = jpaQueryFactory;
     }
 
     @Override
-    public List<SurveyCategory> findAllSurveyCategory() {
-        return jpaQueryFactory.select(surveyCategory)
-                .from(surveyCategory)
+    public List<SurveyCategoryEntity> findAllSurveyCategory() {
+        return jpaQueryFactory.select(surveyCategoryEntity)
+                .from(surveyCategoryEntity)
                 .fetch();
     }
 

@@ -17,7 +17,7 @@ import java.util.UUID;
 @AllArgsConstructor
 @Entity
 @Table(name = "survey_category")
-public class SurveyCategory implements Serializable {
+public class SurveyCategoryEntity implements Serializable {
 
     @Id
     @GeneratedValue(generator = "UUID")
@@ -50,7 +50,7 @@ public class SurveyCategory implements Serializable {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || Hibernate.getClass(this) != Hibernate.getClass(o)) return false;
-        SurveyCategory that = (SurveyCategory) o;
+        SurveyCategoryEntity that = (SurveyCategoryEntity) o;
         return id != null && Objects.equals(id, that.id);
     }
 
