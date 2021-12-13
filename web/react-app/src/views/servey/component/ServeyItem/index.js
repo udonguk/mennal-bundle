@@ -1,4 +1,4 @@
-import {Button, Card, CardActions, CardContent, Typography} from "@mui/material";
+import {Button, Card, CardActions, CardContent, Grid, Typography} from "@mui/material";
 import PropTypes from 'prop-types';
 import React from "react";
 import {observer} from "mobx-react";
@@ -14,14 +14,28 @@ const SurveyItem = observer(({item, index}) => {
   }
 
   return (
-    <Card>
+    <Card key={item.id}>
       <CardContent>
         <Typography>
           {`${index + 1}. ${item.title}`}
         </Typography>
       </CardContent>
       <CardActions>
-        <Button
+        <Grid container rowSpacing={1} columnSpacing={{ xs: 1, sm: 2, md: 3}}>
+          {item.surveyItemOptions.map(option =>
+            <Grid item xs={6} key={option.id}>
+              <Button
+                key ={option.id}
+                variant={'contained'}
+                // onClick={yesClickHandler}
+                color={'Y' === option.checked ? 'success' : 'secondary'}
+                fullWidth>
+                {option.title}
+              </Button>
+            </Grid>
+          )}
+        </Grid>
+        {/*<Button
           variant={'contained'}
           onClick={yesClickHandler}
           color={'Y' === item.status ? 'success' : 'secondary'}
@@ -33,7 +47,7 @@ const SurveyItem = observer(({item, index}) => {
                 color={'N' === item.status ? 'success' : 'secondary'}
                 fullWidth>
           NO
-        </Button>
+        </Button>*/}
       </CardActions>
     </Card>
   )

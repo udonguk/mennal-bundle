@@ -1,6 +1,6 @@
 import {makeAutoObservable, runInAction} from "mobx";
 import _ from "lodash";
-import {SurveyCategory} from "../domain/SurveyCategory";
+import {SurveyCategoryDomain} from "../domain/SurveyCategoryDomain";
 import axiosToApi from "../../config/axios/api";
 
 export class SurveyCategoryStore {
@@ -34,7 +34,7 @@ export class SurveyCategoryStore {
   setCategoryFromServer(item) {
     let categoryItem;
     if (!categoryItem) {
-      categoryItem = new SurveyCategory(this, item);
+      categoryItem = new SurveyCategoryDomain(this, item);
       this.surveyCategories.push(categoryItem);
     }
   }

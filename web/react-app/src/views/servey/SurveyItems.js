@@ -1,9 +1,10 @@
 import SurveyItem from "./component/ServeyItem";
-import {Stack} from "@mui/material";
-import React, {useContext, useLayoutEffect} from "react";
+import {Stack, Typography} from "@mui/material";
+import React, {useContext, useEffect, useLayoutEffect} from "react";
 import {observer} from "mobx-react";
 import {useLocation} from "react-router-dom";
 import {StoresContext} from "../../store/RootStore";
+import _ from "lodash";
 
 const SurveyItems = observer(() => {
   const store = useContext(StoresContext);
@@ -23,15 +24,18 @@ const SurveyItems = observer(() => {
   }, [location])
 
   return (
-    <Stack spacing={1} pt ={3} pb={1}>
-      {surveyItemStore.surveyItems
-        .map((item, index) =>
-          <SurveyItem key={item.id} index={index} item={item}/>
-        )}
-      {/*{getSurveyItems().map((item, index) =>*/}
-      {/*    <SurveyItem key={item.id} index={index} item={item}/>*/}
-      {/*  )}*/}
-    </Stack>
+    <>
+      {_.isNil(surveyItemStore.survey.surveySubCategories) && <Typography>Empty</Typography>}
+      {!_.isNil(surveyItemStore.survey.surveySubCategories) &&
+        <Stack spacing={1} pt ={3} pb={1}>
+          { surveyItemStore.survey.surveySubCategories.map((surveySubCategory) => {
+            return surveySubCategory.surveyItems.map((item, index) =>
+              <SurveyItem key={item.id} index={index} item={item}/>
+            )
+          })}
+        </Stack>
+      }
+    </>
   )
 })
 

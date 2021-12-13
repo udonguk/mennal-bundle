@@ -1,8 +1,8 @@
 import {action, makeAutoObservable, observable} from "mobx";
 import _ from "lodash";
-import {SurveyItem} from "./SurveyItem";
+import {SurveyItemDomain} from "./SurveyItemDomain";
 
-export class SurveySubCategory {
+export class SurveySubCategoryDomain {
   id = ""
   code = ""
   title = ""
@@ -36,7 +36,7 @@ export class SurveySubCategory {
     this.surveyItems = []
     if (!_.isNil(item.surveyItemEntities)) {
       item.surveyItemEntities.forEach(surveyItem => {
-        this.surveyItems.push(new SurveyItem(this, surveyItem))
+        this.surveyItems.push(new SurveyItemDomain(this, surveyItem))
       })
     }
   }

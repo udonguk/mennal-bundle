@@ -1,9 +1,9 @@
 import {makeAutoObservable, runInAction} from "mobx";
 import {getSurveyItems} from "../../dump/surveyItemDump";
-import {SurveyItem} from "../domain/SurveyItem";
+import {SurveyItemDomain} from "../domain/SurveyItemDomain";
 import _ from "lodash";
 import axiosToApi from "../../config/axios/api";
-import {SurveyCategory} from "../domain/SurveyCategory";
+import {SurveyCategoryDomain} from "../domain/SurveyCategoryDomain";
 
 export class SurveyItemStore {
   parent
@@ -47,8 +47,8 @@ export class SurveyItemStore {
     axiosToApi.get(`/survey/${category.id}`)
       .then(res => {
         console.debug('sssss', res.data)
-        this.survey = new SurveyCategory(this, res.data)
-        console.debug('survey', this.survey)
+        this.survey = new SurveyCategoryDomain(this, res.data)
+        console.debug('survey', this.survey.surveySubCategories)
       })
   }
 
@@ -75,7 +75,7 @@ export class SurveyItemStore {
   updateSurveyItemFromServer(item) {
     let surveyItem;
     if(!surveyItem){
-      surveyItem = new SurveyItem(this, item)
+      surveyItem = new SurveyItemDomain(this, item)
       this.surveyItems.push(surveyItem);
     }
   }

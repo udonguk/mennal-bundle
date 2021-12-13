@@ -1,15 +1,16 @@
 import {makeAutoObservable, observable, reaction} from "mobx";
+import _ from "lodash";
+import {SurveyItemOptionDomain} from "./SurveyItemOptionDomain";
 
-export class SurveyItemOption {
+export class SurveyItemDomain {
   id = ""
   title = ""
-  orderNum = 0
-  useYn = 'Y'
+  orderNum = ""
+  useYn = ""
   regDt = null
   editDt = null
   delDt = null
-
-  result = ""
+  surveyItemOptions = []
 
   isChecked = false
   status = ""
@@ -19,8 +20,10 @@ export class SurveyItemOption {
 
   constructor(store, item) {
     makeAutoObservable(this, {
-      id:observable,
+      id: observable,
+      surveyItemOptions: observable,
       isChecked: observable,
+
     })
     this.store = store
 
@@ -32,11 +35,36 @@ export class SurveyItemOption {
     this.editDt = item.editDt
     this.delDt = item.delDt
 
+
+    this.surveyItemOptions = []
+    if(!_.isNil(item.surveyItemOptionEntities)){
+      item.surveyItemOptionEntities.forEach(
+        surveyItemOption => this.surveyItemOptions.push(new SurveyItemOptionDomain(this, surveyItemOption)))
+    }
+
     this.saveHandler = reaction(
       () => this.asJson,
       json => {
         // doSomeThing
       }
     )
+  }
+
+  setStatus(param){
+    this.isChecked = true
+    this.status = param
+  }
+
+
+  delete() {
+
+  }
+
+  get asJson() {
+
+  }
+
+  dispose() {
+
   }
 }
