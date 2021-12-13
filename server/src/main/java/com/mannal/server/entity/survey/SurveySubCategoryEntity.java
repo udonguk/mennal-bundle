@@ -33,11 +33,22 @@ public class SurveySubCategoryEntity implements Serializable {
     @Column(name="survey_sub_category_id", updatable = false, nullable = false)
     private UUID id;
 
+    @Column
     private String title;
+
+    @Column
     private String code;
+
+    @Column
     private String useYn;
+
+    @Column
     private Date regDt;
+
+    @Column
     private Date editDt;
+
+    @Column
     private Date delDt;
 
     @NotNull

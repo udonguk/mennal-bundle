@@ -32,6 +32,7 @@ public class SurveyItemOptionEntity implements Serializable {
     @Column(name="survey_item_option_id", updatable = false, nullable = false)
     private UUID id;
 
+    @Column
     private String title;
 
     @NotNull
@@ -40,9 +41,16 @@ public class SurveyItemOptionEntity implements Serializable {
     @NotNull
     private Integer orderNum;
 
+    @Column
     private String useYn;
+
+    @Column
     private Date regDt;
+
+    @Column
     private Date editDt;
+
+    @Column
     private Date delDt;
 
     @NotNull

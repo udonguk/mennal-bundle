@@ -24,11 +24,12 @@ public class SurveyRepositoryImpl extends QuerydslRepositorySupport implements S
     }
 
     @Override
-    public List<SurveyEntity> findSurvey(UUID categoryId) {
+    public SurveyEntity findSurvey(UUID categoryId) {
         return jpaQueryFactory.select(surveyEntity)
                 .from(surveyEntity)
                 .where(surveyEntity.id.eq(categoryId))
-                .fetch();
+                .fetch()
+                .get(0);
     }
 
     // 페이징 참고

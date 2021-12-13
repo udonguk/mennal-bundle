@@ -5,7 +5,6 @@ import com.mannal.server.service.survey.SurveyService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
 import java.util.UUID;
 
 @RestController
@@ -21,7 +20,7 @@ public class surveyController {
 
     @GetMapping("/{categoryId}")
     @ResponseBody
-    public ResponseEntity<List<SurveyEntity>> findSurvey(@PathVariable("categoryId") String categoryId){
+    public ResponseEntity<SurveyEntity> findSurvey(@PathVariable("categoryId") String categoryId){
         return ResponseEntity.ok(surveyService.findSurvey(UUID.fromString(categoryId)));
     }
 }

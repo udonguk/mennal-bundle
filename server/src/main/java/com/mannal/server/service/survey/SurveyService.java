@@ -9,5 +9,5 @@ import java.util.UUID;
 public interface SurveyService {
     List<SurveyCategoryEntity> getAllSurveys();
 
-    List<SurveyEntity> findSurvey(UUID categoryId);
+    SurveyEntity findSurvey(UUID categoryId);
 }

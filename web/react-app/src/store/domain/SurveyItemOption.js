@@ -1,10 +1,14 @@
-import {makeAutoObservable, reaction} from "mobx";
+import {makeAutoObservable, observable, reaction} from "mobx";
 
-export class SurveyItem {
+export class SurveyItemOption {
   id = ""
   title = ""
-  order
-  use_yn = 'Y'
+  orderNum = 0
+  useYn = 'Y'
+  regDt = null
+  editDt = null
+  delDt = null
+
   result = ""
 
   isChecked = false
@@ -14,15 +18,19 @@ export class SurveyItem {
   saveHandler = null
 
   constructor(store, item) {
-    makeAutoObservable(this)
+    makeAutoObservable(this, {
+      id:observable,
+      isChecked: observable,
+    })
     this.store = store
 
     this.id = item.id
-    this.category = item.category
-    this.subCategory = item.subCategory
-    this.num = item.num
     this.title = item.title
-    this.result = item.result
+    this.orderNum = item.orderNum
+    this.useYn = item.useYn
+    this.regDt = item.regDt
+    this.editDt = item.editDt
+    this.delDt = item.delDt
 
     this.saveHandler = reaction(
       () => this.asJson,
@@ -30,23 +38,5 @@ export class SurveyItem {
         // doSomeThing
       }
     )
-  }
-
-  setStatus(param){
-    this.isChecked = true
-    this.status = param
-  }
-
-
-  delete() {
-
-  }
-
-  get asJson() {
-
-  }
-
-  dispose() {
-
   }
 }

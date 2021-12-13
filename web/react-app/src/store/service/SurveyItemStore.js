@@ -3,10 +3,12 @@ import {getSurveyItems} from "../../dump/surveyItemDump";
 import {SurveyItem} from "../domain/SurveyItem";
 import _ from "lodash";
 import axiosToApi from "../../config/axios/api";
+import {SurveyCategory} from "../domain/SurveyCategory";
 
 export class SurveyItemStore {
   parent
   surveyItems = []
+  survey = {}
   isLoading = true
   isResultLoading = false;
   result = {
@@ -44,7 +46,9 @@ export class SurveyItemStore {
 
     axiosToApi.get(`/survey/${category.id}`)
       .then(res => {
-        console.debug(res)
+        console.debug('sssss', res.data)
+        this.survey = new SurveyCategory(this, res.data)
+        console.debug('survey', this.survey)
       })
   }
 

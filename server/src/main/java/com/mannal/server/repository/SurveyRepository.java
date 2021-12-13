@@ -6,5 +6,5 @@ import java.util.List;
 import java.util.UUID;
 
 public interface SurveyRepository {
-    List<SurveyEntity> findSurvey(UUID categoryId);
+    SurveyEntity findSurvey(UUID categoryId);
 }

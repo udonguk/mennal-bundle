@@ -28,7 +28,7 @@ public class SurveyServiceImpl implements SurveyService {
     }
 
     @Override
-    public List<SurveyEntity> findSurvey(UUID categoryId) {
+    public SurveyEntity findSurvey(UUID categoryId) {
         return surveyRepository.findSurvey(categoryId);
     }
 }
