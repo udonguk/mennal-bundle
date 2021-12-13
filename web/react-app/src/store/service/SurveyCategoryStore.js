@@ -1,9 +1,7 @@
 import {makeAutoObservable, runInAction} from "mobx";
-import axios from "axios";
 import _ from "lodash";
 import {SurveyCategory} from "../domain/SurveyCategory";
-
-// import {getSurveyCategories} from "../../dump/surveyCategoryDump";
+import axiosToApi from "../../config/axios/api";
 
 export class SurveyCategoryStore {
   parent
@@ -42,16 +40,14 @@ export class SurveyCategoryStore {
   }
 
   getSurveyCategories(func) {
-    axios.get(`api/survey/category`)
+    axiosToApi.get(`/survey/category`)
       .then(res => {
         func(res)
       })
   }
 
   getSurveyCategory(code = ''){
-    if(_.isNil(code)){
-      return null
-    }
+    if(_.isNil(code)){ return null }
 
     return this.surveyCategories
       .filter(item => code === item.code)[0]

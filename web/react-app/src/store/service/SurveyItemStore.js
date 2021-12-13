@@ -1,5 +1,4 @@
 import {makeAutoObservable, runInAction} from "mobx";
-import axios from "axios";
 import {getSurveyItems} from "../../dump/surveyItemDump";
 import {SurveyItem} from "../domain/SurveyItem";
 import _ from "lodash";
@@ -78,7 +77,7 @@ export class SurveyItemStore {
   }
 
   getTest() {
-    axios.get('api')
+    axiosToApi.get('api')
       .then(res => {
         console.debug('res', res)
       })
