@@ -28,20 +28,20 @@ class SurveyServiceImplTest {
     private SurveyCategoryRepository surveyCategoryRepository;
 
     @Test
-    public void getAllSurveys() throws Exception {
+    public void getAllSurveys() {
         // given
         SurveyCategory surveyCategory1 = SurveyCategory.builder()
                 .id(UUID.randomUUID())
                 .title("TEST_surveyCategory1")
-                .reg_dt(Date.valueOf(LocalDate.now()))
-                .edit_dt(Date.valueOf(LocalDate.now()))
+                .regDt(Date.valueOf(LocalDate.now()))
+                .editDt(Date.valueOf(LocalDate.now()))
                 .build();
 
         SurveyCategory surveyCategory2 = SurveyCategory.builder()
                 .id(UUID.randomUUID())
                 .title("TEST_surveyCategory2")
-                .reg_dt(Date.valueOf(LocalDate.now()))
-                .edit_dt(Date.valueOf(LocalDate.now()))
+                .regDt(Date.valueOf(LocalDate.now()))
+                .editDt(Date.valueOf(LocalDate.now()))
                 .build();
 
         List<SurveyCategory> surveyCategoryList = new ArrayList<>();

@@ -4,12 +4,14 @@ import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import com.sun.istack.NotNull;
 import lombok.*;
+import org.hibernate.Hibernate;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
+import java.util.Objects;
 import java.util.UUID;
 
 @Getter
@@ -33,10 +35,10 @@ public class SurveySubCategoryEntity implements Serializable {
 
     private String title;
     private String code;
-    private String use_yn;
-    private Date reg_dt;
-    private Date edit_dt;
-    private Date del_dt;
+    private String useYn;
+    private Date regDt;
+    private Date editDt;
+    private Date delDt;
 
     @NotNull
     @ManyToOne
@@ -46,4 +48,17 @@ public class SurveySubCategoryEntity implements Serializable {
     @NotNull
     @OneToMany(mappedBy = "surveySubCategoryEntity")
     private List<SurveyItemEntity> surveyItemEntities;
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || Hibernate.getClass(this) != Hibernate.getClass(o)) return false;
+        SurveySubCategoryEntity that = (SurveySubCategoryEntity) o;
+        return id != null && Objects.equals(id, that.id);
+    }
+
+    @Override
+    public int hashCode() {
+        return getClass().hashCode();
+    }
 }

@@ -4,11 +4,13 @@ import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import com.sun.istack.NotNull;
 import lombok.*;
+import org.hibernate.Hibernate;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Date;
+import java.util.Objects;
 import java.util.UUID;
 
 @Getter
@@ -38,13 +40,26 @@ public class SurveyItemOptionEntity implements Serializable {
     @NotNull
     private Integer orderNum;
 
-    private String use_yn;
-    private Date reg_dt;
-    private Date edit_dt;
-    private Date del_dt;
+    private String useYn;
+    private Date regDt;
+    private Date editDt;
+    private Date delDt;
 
     @NotNull
     @ManyToOne
     @JoinColumn(name="survey_item_id")
     private SurveyItemEntity surveyItemEntity;
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || Hibernate.getClass(this) != Hibernate.getClass(o)) return false;
+        SurveyItemOptionEntity that = (SurveyItemOptionEntity) o;
+        return id != null && Objects.equals(id, that.id);
+    }
+
+    @Override
+    public int hashCode() {
+        return getClass().hashCode();
+    }
 }
