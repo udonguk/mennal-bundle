@@ -34,7 +34,7 @@ const Survey = observer(() => {
       </Box>
       <Outlet id={'surveyItems'}/>
       <Button variant={'contained'}
-        // disabled={100 !== surveyItemStore.progressPercent}
+              disabled={100 !== surveyItemStore.progressPercent}
               onClick={showResultOnClick}
               fullWidth
       >

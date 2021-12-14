@@ -11,7 +11,7 @@ export class SurveyItemOptionDomain {
 
   result = ""
 
-  isChecked = false
+  _isChecked = false
   status = ""
 
   store = null
@@ -20,7 +20,7 @@ export class SurveyItemOptionDomain {
   constructor(store, item) {
     makeAutoObservable(this, {
       id:observable,
-      isChecked: observable,
+      _isChecked: observable,
     })
     this.store = store
 
@@ -31,12 +31,15 @@ export class SurveyItemOptionDomain {
     this.regDt = item.regDt
     this.editDt = item.editDt
     this.delDt = item.delDt
-
-    this.saveHandler = reaction(
-      () => this.asJson,
-      json => {
-        // doSomeThing
-      }
-    )
   }
+
+  set isChecked (param) {
+    this._isChecked = param
+  }
+
+  get isChecked () {
+    return this._isChecked
+  }
+
+
 }

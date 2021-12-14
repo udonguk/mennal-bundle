@@ -1,4 +1,4 @@
-import {makeAutoObservable, observable, reaction} from "mobx";
+import {action, makeAutoObservable, observable, reaction} from "mobx";
 import _ from "lodash";
 import {SurveyItemOptionDomain} from "./SurveyItemOptionDomain";
 
@@ -12,7 +12,7 @@ export class SurveyItemDomain {
   delDt = null
   surveyItemOptions = []
 
-  isChecked = false
+  _isChecked = false
   status = ""
 
   store = null
@@ -22,8 +22,8 @@ export class SurveyItemDomain {
     makeAutoObservable(this, {
       id: observable,
       surveyItemOptions: observable,
-      isChecked: observable,
-
+      _isChecked: observable,
+      setSurveyItemOptions: action
     })
     this.store = store
 
@@ -35,36 +35,24 @@ export class SurveyItemDomain {
     this.editDt = item.editDt
     this.delDt = item.delDt
 
+    this.setSurveyItemOptions(item);
+  }
 
+  get isChecked () {
+    let result = false
+    if(0 === this.surveyItemOptions.length) result = false
+
+    this.surveyItemOptions.forEach(option => {
+      if(option.isChecked) result = true
+    })
+    return result
+  }
+
+  setSurveyItemOptions(item) {
     this.surveyItemOptions = []
-    if(!_.isNil(item.surveyItemOptionEntities)){
+    if (!_.isNil(item.surveyItemOptionEntities)) {
       item.surveyItemOptionEntities.forEach(
         surveyItemOption => this.surveyItemOptions.push(new SurveyItemOptionDomain(this, surveyItemOption)))
     }
-
-    this.saveHandler = reaction(
-      () => this.asJson,
-      json => {
-        // doSomeThing
-      }
-    )
-  }
-
-  setStatus(param){
-    this.isChecked = true
-    this.status = param
-  }
-
-
-  delete() {
-
-  }
-
-  get asJson() {
-
-  }
-
-  dispose() {
-
   }
 }

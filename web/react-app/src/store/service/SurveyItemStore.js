@@ -1,5 +1,4 @@
-import {makeAutoObservable, runInAction} from "mobx";
-import {getSurveyItems} from "../../dump/surveyItemDump";
+import {action, makeAutoObservable, observable, runInAction} from "mobx";
 import {SurveyItemDomain} from "../domain/SurveyItemDomain";
 import _ from "lodash";
 import axiosToApi from "../../config/axios/api";
@@ -16,7 +15,13 @@ export class SurveyItemStore {
   }
 
   constructor(parent) {
-    makeAutoObservable(this)
+    makeAutoObservable(this, {
+      survey: observable,
+      isLoading: observable,
+      loadSurveyItemsByCategory: action,
+      updateSurveyItemFromServer: action,
+      getSurveyItems: action,
+    })
     this.parent = parent
     this.loadSurveyItemsByCategory()
   }
@@ -25,31 +30,18 @@ export class SurveyItemStore {
     this.isLoading = true;
     runInAction(() => {
       this.surveyItems = [];
-      // todo 서버 호출 방식으로 변경되어야 함
-      let filteredSurveyItems;
-      this.getSurveyItems2(category)
-
-      if(_.isNil(category)){
-        filteredSurveyItems = getSurveyItems();
-      } else {
-        filteredSurveyItems = getSurveyItems().filter(item => category.code === item.category);
-      }
-      filteredSurveyItems.forEach(item => this.updateSurveyItemFromServer(item))
-      this.isLoading = false
+      this.getSurveyItems(category, (res) => {
+        this.survey = new SurveyCategoryDomain(this, res.data)
+        this.isLoading = false
+      })
     })
   }
 
-  getSurveyItems2(category){
-    if(_.isNil(category) || _.isNil(category.id)){
-      return;
-    }
+  getSurveyItems(category, successHandler ){
+    if(_.isNil(category) || _.isNil(category.id)) return
 
     axiosToApi.get(`/survey/${category.id}`)
-      .then(res => {
-        console.debug('sssss', res.data)
-        this.survey = new SurveyCategoryDomain(this, res.data)
-        console.debug('survey', this.survey.surveySubCategories)
-      })
+      .then(res => successHandler(res))
   }
 
   updateSurveyItemsToServer() {
@@ -87,14 +79,28 @@ export class SurveyItemStore {
       })
   }
 
+  itemLooper(handler) {
+    if(_.isNil(this.survey.surveySubCategories)) return
+
+    this.survey.surveySubCategories.forEach(surveySubCategory => {
+      surveySubCategory.surveyItems.forEach(item => {
+        handler(item)
+      })
+    })
+  }
+
   get checkCount(){
-    return this.surveyItems.filter(item =>
-      true === item.isChecked
-    ).length
+    let result = 0;
+    this.itemLooper((item) => {
+      if(item.isChecked) { result ++}
+    })
+    return result
   }
 
   get itemCount(){
-    return this.surveyItems.length
+    let result = 0;
+    this.itemLooper((item) => result ++)
+    return result
   }
 
   get progressPercent() {
