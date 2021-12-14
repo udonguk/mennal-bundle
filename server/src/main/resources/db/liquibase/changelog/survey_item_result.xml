@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.6.xsd">
+
+    <changeSet id="survey_item_result-001" author="donguk">
+        <createTable tableName="survey_item_result">
+            <column name="survey_item_result_id" type="${uuidType}" remarks="고유식별자 아이디" defaultValue="uuid_generate_v4()">
+                <constraints primaryKey="true" />
+            </column>
+            <column name="survey_item_id" type="${uuidType}" remarks="아이템 아이디" defaultValue="uuid_generate_v4()">
+                <constraints nullable="false"/>
+            </column>
+            <column name="request_id" type="${uuidType}" remarks="요청ID">
+                <constraints nullable="false"/>
+            </column>
+            <column name="type" type="${varcharType}(20)" defaultValue="undefined" remarks="유형"/>
+            <column name="total_score" type="number" remarks="합산점수">
+                <constraints nullable="false"/>
+            </column>
+            <column name="use_yn" type="${varcharType}(1)" defaultValue="Y" remarks="사용여부(YN)"/>
+            <column name="reg_dt" type="${datetimeType}" defaultValueDate="${now}" remarks="등록일자" />
+            <column name="edit_dt" type="${datetimeType}" defaultValueDate="${now}" remarks="수정일자" />
+            <column name="del_dt" type="${datetimeType}"  remarks="삭제일자" />
+        </createTable>
+        <createIndex tableName="survey_item_result" indexName="survey_item_result_survey_item_id_idx">
+            <column name="survey_item_id" />
+        </createIndex>
+        <createIndex tableName="survey_item_result" indexName="survey_item_result_request_id">
+            <column name="request_id" />
+        </createIndex>
+    </changeSet>
+
+<!--
+    <changeSet id="survey_item_result_data-001" author="donguk" context="dev">
+        <loadData tableName="survey_item_result" file="db/liquibase/data/survey_item_result" separator="|">
+            <column name="survey_item_result_id" header="survey_item_result_id" />
+            <column name="survey_item_id" header="survey_item_id" />
+            <column name="title" header="title" />
+            <column name="score" header="score" />
+            <column name="order_num" header="order_num" />
+            <column name="use_yn" header="use_yn" />
+            <column name="reg_dt" header="reg_dt" />
+            <column name="edit_dt" header="edit_dt" />
+            <column name="del_dt" header="del_dt" />
+        </loadData>
+    </changeSet>
+-->
+
+</databaseChangeLog>
