@@ -11,11 +11,11 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/survey/category")
-public class surveyCategoryController {
+public class SurveyCategoryController {
 
     private final SurveyService surveyService;
 
-    public surveyCategoryController(SurveyService surveyService) {
+    public SurveyCategoryController(SurveyService surveyService) {
         this.surveyService = surveyService;
     }
 

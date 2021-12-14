@@ -6,6 +6,12 @@ const axiosToApi = axios.create({
   headers: {'X-Custom-Header': 'foobar'}
 })
 
+
+// axiosToApi.defaults.xsrfCookieName = 'csrftoken';
+axiosToApi.defaults.xsrfCookieName = 'XSRF-TOKEN';
+// axiosToApi.defaults.xsrfHeaderName = 'X-CSRFTOKEN';
+axiosToApi.defaults.xsrfHeaderName = 'X-XSRF-TOKEN';
+
 axiosToApi.interceptors.request.use(
   function(config){
     console.debug('config', config)

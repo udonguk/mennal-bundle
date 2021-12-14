@@ -48,6 +48,20 @@ export class SurveyItemDomain {
     return result
   }
 
+  get totalScore () {
+    return _.sum(this.surveyItemOptions
+      .filter(option => option.isChecked)
+      .map(option => option.score))
+  }
+
+  get resultJson () {
+    return {
+      surveyItemId: this.id,
+      type: 'undefined',
+      totalScore: this.totalScore,
+    }
+  }
+
   setSurveyItemOptions(item) {
     this.surveyItemOptions = []
     if (!_.isNil(item.surveyItemOptionEntities)) {

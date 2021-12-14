@@ -2,14 +2,19 @@ package com.mannal.server.entity.survey;
 
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+import com.mannal.server.constance.ApplicationCoreConstant;
 import com.sun.istack.NotNull;
 import lombok.*;
 import org.hibernate.Hibernate;
+import org.hibernate.annotations.ColumnDefault;
 import org.hibernate.annotations.GenericGenerator;
+import org.hibernate.annotations.UpdateTimestamp;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
 import java.io.Serializable;
-import java.util.Date;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.Objects;
 import java.util.UUID;
 
@@ -49,16 +54,27 @@ public class SurveyResultEntity implements Serializable {
     private Integer totalScore;
 
     @Column
+    @ColumnDefault("Y")
     private String useYn;
 
     @Column
-    private Date regDt;
+    @DateTimeFormat(pattern = ApplicationCoreConstant.DEFAULT_TIMESTAMP)
+    @UpdateTimestamp
+    private LocalDateTime regDt;
 
     @Column
-    private Date editDt;
+    @DateTimeFormat(pattern = ApplicationCoreConstant.DEFAULT_TIMESTAMP)
+    @UpdateTimestamp
+    private LocalDateTime editDt;
 
     @Column
-    private Date delDt;
+    private LocalDateTime delDt;
+
+//    @NotNull
+//    @ManyToOne
+//    @JoinColumn(name="survey_item_id")
+//    private SurveyItemEntity surveyItemEntity;
+
 
     @Override
     public boolean equals(Object o) {

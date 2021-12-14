@@ -5,7 +5,7 @@ const MyResponsiveRadar = ({data}) => {
   return (
     <ResponsiveRadar
       data={data}
-      keys={['chardonay']}
+      keys={['score']}
       indexBy="faction"
       valueFormat=">-.2f"
       margin={{ top: 70, right: 80, bottom: 40, left: 80 }}

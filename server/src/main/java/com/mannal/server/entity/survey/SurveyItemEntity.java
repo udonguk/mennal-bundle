@@ -74,4 +74,7 @@ public class SurveyItemEntity implements Serializable {
     public int hashCode() {
         return getClass().hashCode();
     }
+
+    @Transient
+    private List<SurveyResultEntity> surveyResultEntities;
 }

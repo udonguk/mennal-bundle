@@ -9,7 +9,7 @@ const SurveyItem = observer(({item, index}) => {
     <Card key={item.id}>
       <CardContent>
         <Typography>
-          {`${index + 1}. ${item.title}`}
+          {`${index + 1}. ${item.title}  ${item.totalScore}`}
         </Typography>
       </CardContent>
       <CardActions>

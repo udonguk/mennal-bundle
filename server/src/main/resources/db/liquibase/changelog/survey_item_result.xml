@@ -9,7 +9,7 @@
             <column name="survey_item_result_id" type="${uuidType}" remarks="고유식별자 아이디" defaultValue="uuid_generate_v4()">
                 <constraints primaryKey="true" />
             </column>
-            <column name="survey_item_id" type="${uuidType}" remarks="아이템 아이디" defaultValue="uuid_generate_v4()">
+            <column name="survey_item_id" type="${uuidType}" remarks="아이템 아이디">
                 <constraints nullable="false"/>
             </column>
             <column name="request_id" type="${uuidType}" remarks="요청ID">

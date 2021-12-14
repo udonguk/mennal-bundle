@@ -3,6 +3,7 @@ import {makeAutoObservable, observable, reaction} from "mobx";
 export class SurveyItemOptionDomain {
   id = ""
   title = ""
+  score = 0
   orderNum = 0
   useYn = 'Y'
   regDt = null
@@ -26,6 +27,7 @@ export class SurveyItemOptionDomain {
 
     this.id = item.id
     this.title = item.title
+    this.score = item.score
     this.orderNum = item.orderNum
     this.useYn = item.useYn
     this.regDt = item.regDt

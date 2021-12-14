@@ -11,16 +11,28 @@ export class SurveyItemStore {
   isLoading = true
   isResultLoading = false;
   result = {
-    'score': []
+    categoryType: '',
+    factionList: []
+  }
+
+  get graphFormat () {
+    return this.result.factionList.map(item => {
+      return {
+        score: item.score,
+        faction: item.itemType
+      }
+    })
   }
 
   constructor(parent) {
     makeAutoObservable(this, {
       survey: observable,
       isLoading: observable,
+      result: observable,
       loadSurveyItemsByCategory: action,
       updateSurveyItemFromServer: action,
       getSurveyItems: action,
+      sendSurvey: action,
     })
     this.parent = parent
     this.loadSurveyItemsByCategory()
@@ -70,6 +82,19 @@ export class SurveyItemStore {
       surveyItem = new SurveyItemDomain(this, item)
       this.surveyItems.push(surveyItem);
     }
+  }
+
+  sendSurvey(successHandler){
+    let param = []
+    this.itemLooper((item) => {
+      param.push(item.resultJson)
+    })
+    axiosToApi.post('/survey', param)
+      .then(res => {
+        console.debug('res', res)
+        this.result = res.data;
+
+      })
   }
 
   getTest() {
