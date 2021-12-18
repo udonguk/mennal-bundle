@@ -5,18 +5,16 @@ const MyResponsiveRadar = ({data}) => {
   return (
     <ResponsiveRadar
       data={data}
-      keys={['score']}
+      keys={[ 'score']}
       indexBy="faction"
       valueFormat=">-.2f"
-      margin={{ top: 70, right: 80, bottom: 40, left: 80 }}
-      borderWidth={3}
+      margin={{ top: 5, right: 70, bottom: 5, left: 70 }}
       borderColor={{ from: 'color' }}
       gridLabelOffset={36}
       dotSize={10}
       dotColor={{ theme: 'background' }}
       dotBorderWidth={2}
-      colors={{ scheme: 'pink_yellowGreen' }}
-      fillOpacity={0.75}
+      colors={{ scheme: 'nivo' }}
       blendMode="multiply"
       motionConfig="wobbly"
       legends={[

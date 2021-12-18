@@ -16,10 +16,17 @@ export class SurveyItemStore {
   }
 
   get graphFormat () {
-    return this.result.factionList.map(item => {
+    console.debug('format', this.result.factionList.map(item => {
       return {
         score: item.score,
         faction: item.itemType
+      }
+    }))
+
+    return this.result.factionList.map(item => {
+      return {
+        score: item.score,
+        faction: item.faction
       }
     })
   }
