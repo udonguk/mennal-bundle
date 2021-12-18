@@ -56,6 +56,7 @@ public class SurveyServiceImpl implements SurveyService {
 
         return SurveyResultDto.builder()
                 .factionList(factionDtos)
+                .categoryId(surveyEntity.getId())
                 .categoryType(surveyEntity.getTitle())
                 .build();
     }

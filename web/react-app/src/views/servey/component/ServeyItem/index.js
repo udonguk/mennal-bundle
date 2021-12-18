@@ -1,15 +1,16 @@
 import {Button, Card, CardActions, CardContent, Grid, Typography} from "@mui/material";
 import PropTypes from 'prop-types';
-import React from "react";
+import React, {useState} from "react";
 import {observer} from "mobx-react";
 
 const SurveyItem = observer(({item, index}) => {
+  const [isChecked, setIsChecked] = useState(false)
 
   return (
     <Card key={item.id}>
       <CardContent>
         <Typography>
-          {`${index + 1}. ${item.title}  ${item.totalScore}`}
+          {`${index + 1}. ${item.title}`}
         </Typography>
       </CardContent>
       <CardActions>
@@ -22,6 +23,9 @@ const SurveyItem = observer(({item, index}) => {
                 onClick={() => {
                   option.setUnCheckAll()
                   option.setIsChecked(true)
+                  if(!isChecked){
+                    setIsChecked(true)
+                  }
                 }}
                 color={option.isChecked ? 'success' : 'secondary'}
                 fullWidth>

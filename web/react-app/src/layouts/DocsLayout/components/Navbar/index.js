@@ -2,10 +2,12 @@ import React, {useContext, useState} from "react";
 import {
   AppBar,
   Box,
+  ButtonBase,
   Container,
   IconButton,
   List,
   ListItem,
+  ListItemIcon,
   ListItemText,
   styled,
   SwipeableDrawer,
@@ -16,6 +18,7 @@ import MenuIcon from "@mui/icons-material/Menu";
 import {Link, Outlet} from "react-router-dom";
 import {observer} from "mobx-react";
 import {StoresContext} from "../../../../store/RootStore";
+import ArticleIcon from '@mui/icons-material/Article';
 
 
 const Navbar = observer(() => {
@@ -42,13 +45,19 @@ const Navbar = observer(() => {
             >
               <MenuIcon />
             </IconButton>
-            <Typography
-              variant="h6"
-              component="div"
-              sx={{ flexGrow: 1 }}
+
+            <ButtonBase component={Link}
+                        to={`/`}
             >
-              맨날
-            </Typography>
+              <Typography
+                variant="h6"
+                component="div"
+                sx={{ flexGrow: 1 }}
+              >
+                맨날
+              </Typography>
+            </ButtonBase>
+
             <SwipeableDrawer
               anchor={'left'}
               open={menuIsOn}
@@ -69,6 +78,9 @@ const Navbar = observer(() => {
                         component={Link}
                         to={`/survey/${item.code}`}
                       >
+                        <ListItemIcon>
+                          <ArticleIcon />
+                        </ListItemIcon>
                         <ListItemText primary={item.title} />
                       </ListItem>
                     )

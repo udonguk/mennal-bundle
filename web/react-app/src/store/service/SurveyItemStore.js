@@ -63,26 +63,6 @@ export class SurveyItemStore {
       .then(res => successHandler(res))
   }
 
-  updateSurveyItemsToServer() {
-    this.isResultLoading = true;
-    setTimeout(() => {
-      this.result.score = [
-        {
-          "faction": "학습의지",
-          "chardonay": 31,
-        },
-        {
-          "faction": "학습행동",
-          "chardonay": 40,
-        },
-        {
-          "faction": "학습신념",
-          "chardonay": 34,
-        }]
-      this.isResultLoading = false;
-    }, 1000);
-  }
-
   updateSurveyItemFromServer(item) {
     let surveyItem;
     if(!surveyItem){
@@ -97,11 +77,7 @@ export class SurveyItemStore {
       param.push(item.resultJson)
     })
     axiosToApi.post('/survey', param)
-      .then(res => {
-        console.debug('res', res)
-        this.result = res.data;
-
-      })
+      .then(res => this.result = res.data)
   }
 
   getTest() {

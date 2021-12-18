@@ -1,6 +1,6 @@
 import SurveyItem from "./component/ServeyItem";
 import {Stack, Typography} from "@mui/material";
-import React, {useContext, useEffect, useLayoutEffect} from "react";
+import React, {useContext, useLayoutEffect} from "react";
 import {observer} from "mobx-react";
 import {useLocation} from "react-router-dom";
 import {StoresContext} from "../../store/RootStore";
@@ -23,16 +23,22 @@ const SurveyItems = observer(() => {
     surveyItemStore.loadSurveyItemsByCategory(categoryId)
   }, [location])
 
+  const getItems = () => {
+    let itemCount = 0
+    return <>
+      {surveyItemStore.survey.surveySubCategories.map((surveySubCategory) => {
+        return surveySubCategory.surveyItems.map(item =>
+          <SurveyItem key={item.id} index={itemCount++} item={item}/>
+        )
+      })}
+    </>;
+  }
   return (
     <>
       {_.isNil(surveyItemStore.survey.surveySubCategories) && <Typography>Empty</Typography>}
       {!_.isNil(surveyItemStore.survey.surveySubCategories) &&
-        <Stack spacing={1} pt ={3} pb={1}>
-          { surveyItemStore.survey.surveySubCategories.map((surveySubCategory) => {
-            return surveySubCategory.surveyItems.map((item, index) =>
-              <SurveyItem key={item.id} index={index} item={item}/>
-            )
-          })}
+        <Stack spacing={1} pt={3} pb={1}>
+          {getItems()}
         </Stack>
       }
     </>
