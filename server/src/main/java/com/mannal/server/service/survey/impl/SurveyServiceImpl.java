@@ -1,10 +1,11 @@
 package com.mannal.server.service.survey.impl;
 
+import com.mannal.server.dto.FactionDto;
 import com.mannal.server.dto.SurveyResultDto;
 import com.mannal.server.entity.survey.*;
-import com.mannal.server.exam.D02.ExamD02;
 import com.mannal.server.repository.SurveyCategoryRepository;
 import com.mannal.server.repository.SurveyRepository;
+import com.mannal.server.repository.SurveySubResultRepository;
 import com.mannal.server.service.survey.SurveyService;
 import org.springframework.stereotype.Service;
 
@@ -19,9 +20,15 @@ public class SurveyServiceImpl implements SurveyService {
 
     private final SurveyRepository surveyRepository;
 
-    public SurveyServiceImpl(SurveyCategoryRepository surveyCategoryRepository, SurveyRepository surveyRepository) {
+    private final SurveySubResultRepository surveySubResultRepository;
+
+    public SurveyServiceImpl(SurveyCategoryRepository surveyCategoryRepository
+            , SurveyRepository surveyRepository
+            , SurveySubResultRepository surveySubResultRepository
+    ) {
         this.surveyCategoryRepository = surveyCategoryRepository;
         this.surveyRepository = surveyRepository;
+        this.surveySubResultRepository = surveySubResultRepository;
     }
 
     @Override
@@ -41,28 +48,42 @@ public class SurveyServiceImpl implements SurveyService {
 
     @Override
     public SurveyResultDto getResult(UUID requestId) {
-        SurveyResultDto result = null;
         List<SurveyResultEntity> surveyResultEntities = surveyRepository.findSurveyResult(requestId);
         SurveyEntity surveyEntity = surveyRepository.findSurveyByResult(requestId);
 
-        setResultToSurveyEntity(surveyResultEntities, surveyEntity);
-        ExamD02 examD02 = new ExamD02();
-        switch (surveyEntity.getCode()){
-            case "02":
-                result = examD02.getResult(surveyEntity);
-                break;
-            case "04":
-                // todo
-                result = examD02.getResult(surveyEntity);
-                break;
-            default:
-                break;
+        assembleResultToSurveyEntity(surveyResultEntities, surveyEntity);
+        List<FactionDto> factionDtos = getFactions(surveyEntity);
+
+        return SurveyResultDto.builder()
+                .factionList(factionDtos)
+                .categoryType(surveyEntity.getTitle())
+                .build();
+    }
+
+    private List<FactionDto> getFactions(SurveyEntity surveyEntity) {
+        List<FactionDto> result = new ArrayList<>();
+        for(SurveySubCategoryEntity surveySubCategoryEntity: surveyEntity.getSurveySubCategories()){
+            int totalScore = 0;
+            for (SurveyItemEntity t : surveySubCategoryEntity.getSurveyItemEntities()) {
+                for (SurveyResultEntity surveyResult : t.getSurveyResultEntities()) {
+                    totalScore += surveyResult.getTotalScore();
+                }
+            }
+
+            SurveySubResultEntity surveySubResultEntity =
+                    surveySubResultRepository.get(surveySubCategoryEntity.getId(), totalScore);
+
+            result.add(FactionDto.builder()
+                            .faction(surveySubCategoryEntity.getTitle())
+                            .score(totalScore)
+                            .title(surveySubResultEntity.getResult())
+                    .build());
         }
 
         return result;
     }
 
-    private void setResultToSurveyEntity(List<SurveyResultEntity> surveyResultEntities, SurveyEntity surveyEntity) {
+    private void assembleResultToSurveyEntity(List<SurveyResultEntity> surveyResultEntities, SurveyEntity surveyEntity) {
         for (SurveySubCategoryEntity subCategory : surveyEntity.getSurveySubCategories()) {
             for (SurveyItemEntity item : subCategory.getSurveyItemEntities()) {
                 if (null == item.getSurveyResultEntities()) {

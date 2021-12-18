@@ -52,7 +52,7 @@ public class ExamD02 {
         }
 
         return FactionDto.builder()
-                .itemType(itemType)
+                .faction(itemType)
                 .resultType(resultType)
                 .title(title)
                 .score(score.get())
@@ -80,7 +80,7 @@ public class ExamD02 {
         }
 
         return FactionDto.builder()
-                .itemType(itemType)
+                .faction(itemType)
                 .resultType(resultType)
                 .title(title)
                 .score(score.get())
@@ -107,7 +107,7 @@ public class ExamD02 {
         }
 
         return FactionDto.builder()
-                .itemType(itemType)
+                .faction(itemType)
                 .resultType(resultType)
                 .title(title)
                 .score(score.get())
@@ -116,9 +116,9 @@ public class ExamD02 {
 
     private Integer getSumScore(List<SurveyResultEntity> params) {
         AtomicInteger result = new AtomicInteger();
-        params.forEach(surveyResultEntity -> {
+        for (SurveyResultEntity surveyResultEntity : params) {
             result.addAndGet(surveyResultEntity.getTotalScore());
-        });
+        }
         return result.get();
     }
 

@@ -3,7 +3,6 @@ package com.mannal.server.repository.Impl;
 
 import com.mannal.server.entity.survey.SurveyCategoryEntity;
 import com.mannal.server.entity.survey.SurveyEntity;
-import com.mannal.server.entity.survey.SurveyItemEntity;
 import com.mannal.server.entity.survey.SurveyResultEntity;
 import com.mannal.server.repository.SurveyRepository;
 import com.querydsl.jpa.impl.JPAQueryFactory;
@@ -16,11 +15,10 @@ import javax.transaction.Transactional;
 import java.util.List;
 import java.util.UUID;
 
-
 import static com.mannal.server.entity.survey.QSurveyEntity.surveyEntity;
-import static com.mannal.server.entity.survey.QSurveySubCategoryEntity.surveySubCategoryEntity;
 import static com.mannal.server.entity.survey.QSurveyItemEntity.surveyItemEntity;
 import static com.mannal.server.entity.survey.QSurveyResultEntity.surveyResultEntity;
+import static com.mannal.server.entity.survey.QSurveySubCategoryEntity.surveySubCategoryEntity;
 
 @Repository("surveyRepository")
 public class SurveyRepositoryImpl extends QuerydslRepositorySupport implements SurveyRepository {
