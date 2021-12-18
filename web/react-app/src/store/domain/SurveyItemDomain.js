@@ -1,4 +1,4 @@
-import {action, makeAutoObservable, observable, reaction} from "mobx";
+import {action, makeAutoObservable, observable} from "mobx";
 import _ from "lodash";
 import {SurveyItemOptionDomain} from "./SurveyItemOptionDomain";
 
@@ -23,7 +23,8 @@ export class SurveyItemDomain {
       id: observable,
       surveyItemOptions: observable,
       _isChecked: observable,
-      setSurveyItemOptions: action
+      setSurveyItemOptions: action,
+      uncheckAll: action
     })
     this.store = store
 
@@ -36,6 +37,13 @@ export class SurveyItemDomain {
     this.delDt = item.delDt
 
     this.setSurveyItemOptions(item);
+  }
+
+  uncheckAll() {
+    console.debug('call unchecked')
+    this.surveyItemOptions.forEach(option => {
+      option.setIsChecked(false)
+    })
   }
 
   get isChecked () {

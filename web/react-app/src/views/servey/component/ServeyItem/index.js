@@ -19,7 +19,10 @@ const SurveyItem = observer(({item, index}) => {
               <Button
                 key ={option.id}
                 variant={'contained'}
-                onClick={() => option.isChecked = true}
+                onClick={() => {
+                  option.setUnCheckAll()
+                  option.setIsChecked(true)
+                }}
                 color={option.isChecked ? 'success' : 'secondary'}
                 fullWidth>
                 {option.title}

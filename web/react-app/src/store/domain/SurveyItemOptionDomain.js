@@ -1,4 +1,4 @@
-import {makeAutoObservable, observable, reaction} from "mobx";
+import {action, makeAutoObservable, observable} from "mobx";
 
 export class SurveyItemOptionDomain {
   id = ""
@@ -22,6 +22,7 @@ export class SurveyItemOptionDomain {
     makeAutoObservable(this, {
       id:observable,
       _isChecked: observable,
+      setIsChecked : action,
     })
     this.store = store
 
@@ -36,6 +37,14 @@ export class SurveyItemOptionDomain {
   }
 
   set isChecked (param) {
+    this._isChecked = param
+  }
+
+  setUnCheckAll(){
+    this.store.uncheckAll()
+  }
+
+  setIsChecked(param) {
     this._isChecked = param
   }
 
