@@ -1,4 +1,4 @@
-import {makeAutoObservable, runInAction} from "mobx";
+import {action, makeAutoObservable, runInAction} from "mobx";
 import _ from "lodash";
 import {SurveyCategoryDomain} from "../domain/SurveyCategoryDomain";
 import axiosToApi from "../../config/axios/api";
@@ -13,7 +13,10 @@ export class SurveyCategoryStore {
 
   constructor(parent) {
     console.debug('SurveyCategoryStore constructor')
-    makeAutoObservable(this)
+    makeAutoObservable(this, {
+      getSurveyCategory: action,
+    })
+
     this.parent = parent
     this.loadSurveyCategories()
   }

@@ -1,5 +1,5 @@
 import React, {useContext} from "react";
-import {Box, Button} from "@mui/material";
+import {Box, Button, Typography} from "@mui/material";
 import {observer} from "mobx-react";
 import {Outlet, useNavigate} from "react-router-dom";
 import LinearProgressWithLabel from "../../components/LinearProgressWithLabel";
@@ -10,6 +10,8 @@ const Survey = observer(() => {
   // const store = useContext(GlobalStoreContext);
   const store = useContext(StoresContext);
   const surveyItemStore = store.surveyItemStore
+  const surveyCategoryStore = store.surveyCategoryStore
+
 
   const showResultOnClick = () => {
     surveyItemStore.sendSurvey()
@@ -33,6 +35,9 @@ const Survey = observer(() => {
           info ={`${surveyItemStore.checkCount} / ${surveyItemStore.itemCount}`}
         />
       </Box>
+      <Typography>
+        {surveyItemStore.parent.parent}
+      </Typography>
       <Outlet id={'surveyItems'}/>
       <Button variant={'contained'}
               disabled={100 !== surveyItemStore.progressPercent}
