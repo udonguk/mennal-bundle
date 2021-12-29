@@ -23,7 +23,6 @@
     "react-helmet": "^6.1.0",
     "react-router-dom": "^6.0.2",
     "react-scripts": "4.0.3",
-    "react-snap": "^1.23.0",
     "styled-components": "^5.3.3",
     "web-vitals": "^1.0.1"
   },
@@ -31,17 +30,9 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject",
-    "postbuild": "react-snap"
+    "eject": "react-scripts eject"
   },
-  "reactSnap": {
-    "include": [
-      "/",
-      "/survey",
-      "/servery/02",
-      "/servery/04"
-    ]
-  },
+
   "eslintConfig": {
     "extends": [
       "react-app",
