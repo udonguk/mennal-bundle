@@ -41,4 +41,17 @@
         </loadData>
     </changeSet>
 
+    <changeSet id="survey_sub_category_data-002" author="donguk" context="dev">
+        <loadData tableName="survey_sub_category" file="db/liquibase/data/survey_sub_category2" separator="|">
+            <column name="survey_sub_category_id" header="survey_sub_category_id" />
+            <column name="survey_category_id" header="survey_category_id" />
+            <column name="title" header="title" />
+            <column name="code" header="code" />
+            <column name="use_yn" header="use_yn" />
+            <column name="reg_dt" header="reg_dt" />
+            <column name="edit_dt" header="edit_dt" />
+            <column name="del_dt" header="del_dt" />
+        </loadData>
+    </changeSet>
+
 </databaseChangeLog>

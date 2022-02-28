@@ -2,6 +2,7 @@ import axios from "axios";
 
 
 const axiosToApi = axios.create({
+  // baseURL: 'http://54.84.52.125/api',
   baseURL: 'http://www.mennal.co.kr/api',
   headers: {'X-Custom-Header': 'foobar'}
 })
