@@ -40,7 +40,6 @@ export class SurveyItemDomain {
   }
 
   uncheckAll() {
-    console.debug('call unchecked')
     this.surveyItemOptions.forEach(option => {
       option.setIsChecked(false)
     })
@@ -62,11 +61,16 @@ export class SurveyItemDomain {
       .map(option => option.score))
   }
 
+  get surveyItemOptionDomain () {
+    return this.surveyItemOptions
+  }
+
   get resultJson () {
     return {
       surveyItemId: this.id,
       type: 'undefined',
       totalScore: this.totalScore,
+      surveyItemOptionDomain : this.surveyItemOptionDomain,
     }
   }
 

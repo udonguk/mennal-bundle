@@ -47,6 +47,11 @@ public class SurveyServiceImpl implements SurveyService {
     }
 
     @Override
+    public void saveOptionResult(List<SurveyItemOptionResultEntity> surveyItemOptionResultEntityList) {
+        surveyRepository.savesOptionResult(surveyItemOptionResultEntityList);
+    }
+
+    @Override
     public SurveyResultDto getResult(UUID requestId) {
         List<SurveyResultEntity> surveyResultEntities = surveyRepository.findSurveyResult(requestId);
         SurveyEntity surveyEntity = surveyRepository.findSurveyByResult(requestId);
@@ -60,6 +65,22 @@ public class SurveyServiceImpl implements SurveyService {
                 .categoryType(surveyEntity.getTitle())
                 .build();
     }
+
+    @Override
+    public SurveyResultDto getOptionResult(UUID requestId) {
+        List<SurveyResultEntity> surveyResultEntities = surveyRepository.findSurveyResult(requestId);
+        SurveyEntity surveyEntity = surveyRepository.findSurveyByResult(requestId);
+
+        assembleResultToSurveyEntity(surveyResultEntities, surveyEntity);
+        List<FactionDto> factionDtos = getFactions(surveyEntity);
+
+        return SurveyResultDto.builder()
+                .factionList(factionDtos)
+                .categoryId(surveyEntity.getId())
+                .categoryType(surveyEntity.getTitle())
+                .build();
+    }
+
 
     private List<FactionDto> getFactions(SurveyEntity surveyEntity) {
         List<FactionDto> result = new ArrayList<>();

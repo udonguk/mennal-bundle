@@ -2,15 +2,17 @@ package com.mannal.server.entity.survey;
 
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
-import com.sun.istack.NotNull;
+import com.mannal.server.constance.ApplicationCoreConstant;
 import lombok.*;
 import org.hibernate.Hibernate;
+import org.hibernate.annotations.ColumnDefault;
 import org.hibernate.annotations.GenericGenerator;
+import org.hibernate.annotations.UpdateTimestamp;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
 import java.io.Serializable;
-import java.util.Date;
-import java.util.List;
+import java.time.LocalDateTime;
 import java.util.Objects;
 import java.util.UUID;
 
@@ -20,9 +22,9 @@ import java.util.UUID;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(name = "survey_item_option")
+@Table(name = "survey_item_option_result")
 @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
-public class SurveyItemOptionEntity implements Serializable {
+public class SurveyItemOptionResultEntity implements Serializable {
 
     @Id
     @GeneratedValue(generator = "UUID")
@@ -30,44 +32,41 @@ public class SurveyItemOptionEntity implements Serializable {
             name = "UUID",
             strategy = "org.hibernate.id.UUIDGenerator"
     )
-    @Column(name="survey_item_option_id", updatable = false, nullable = false)
+    @Column(name="survey_item_option_result_id", updatable = false, nullable = false)
     private UUID id;
 
     @Column
-    private String title;
-
-    @NotNull
-    private Integer score;
-
-    @NotNull
-    private Integer orderNum;
+    private UUID surveyItemOptionId;
 
     @Column
+    private UUID requestId;
+
+    @Column
+    @ColumnDefault("N")
+    private String checked;
+
+    @Column
+    @ColumnDefault("Y")
     private String useYn;
 
     @Column
-    private Date regDt;
+    @DateTimeFormat(pattern = ApplicationCoreConstant.DEFAULT_TIMESTAMP)
+    @UpdateTimestamp
+    private LocalDateTime regDt;
 
     @Column
-    private Date editDt;
+    @DateTimeFormat(pattern = ApplicationCoreConstant.DEFAULT_TIMESTAMP)
+    @UpdateTimestamp
+    private LocalDateTime editDt;
 
     @Column
-    private Date delDt;
-
-    @NotNull
-    @ManyToOne
-    @JoinColumn(name="survey_item_id")
-    private SurveyItemEntity surveyItemEntity;
-
-    @OneToMany
-    @JoinColumn(name="survey_item_option_result_id")
-    private List<SurveyItemOptionResultEntity> surveyItemOptionResultEntities;
+    private LocalDateTime delDt;
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || Hibernate.getClass(this) != Hibernate.getClass(o)) return false;
-        SurveyItemOptionEntity that = (SurveyItemOptionEntity) o;
+        SurveyItemOptionResultEntity that = (SurveyItemOptionResultEntity) o;
         return id != null && Objects.equals(id, that.id);
     }
 

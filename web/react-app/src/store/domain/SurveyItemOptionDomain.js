@@ -52,5 +52,12 @@ export class SurveyItemOptionDomain {
     return this._isChecked
   }
 
+  get resultJson () {
+    return {
+      surveyItemOptionId: this.id,
+      checked: this.isChecked,
+    }
+  }
+
 
 }

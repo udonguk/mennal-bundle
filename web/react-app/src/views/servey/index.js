@@ -14,7 +14,8 @@ const Survey = observer(() => {
 
 
   const showResultOnClick = () => {
-    surveyItemStore.sendSurvey()
+    // surveyItemStore.sendSurvey()
+    surveyItemStore.sendSurvey2()
     navigate('/result')
   }
 

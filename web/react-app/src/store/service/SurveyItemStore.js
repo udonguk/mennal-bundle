@@ -72,11 +72,24 @@ export class SurveyItemStore {
   }
 
   sendSurvey(successHandler){
+    console.debug('start sendSurvy');
     let param = []
     this.itemLooper((item) => {
       param.push(item.resultJson)
     })
+    console.debug('param', param)
     axiosToApi.post('/survey', param)
+      .then(res => this.result = res.data)
+  }
+
+  sendSurvey2(){
+    console.debug('start sendSurvy22');
+    let param = []
+    this.optionLooper((item) => {
+      param.push(item.resultJson)
+    })
+    console.debug('param', param)
+    axiosToApi.post('/survey/option', param)
       .then(res => this.result = res.data)
   }
 
@@ -89,13 +102,26 @@ export class SurveyItemStore {
 
   itemLooper(handler) {
     if(_.isNil(this.survey.surveySubCategories)) return
-
+    // console.debug('aaaaa',this.survey.surveySubCategories)
     this.survey.surveySubCategories.forEach(surveySubCategory => {
       surveySubCategory.surveyItems.forEach(item => {
         handler(item)
       })
     })
   }
+
+  optionLooper(handler) {
+    if(_.isNil(this.survey.surveySubCategories)) return
+    this.survey.surveySubCategories.forEach(surveySubCategory => {
+      surveySubCategory.surveyItems.forEach(item => {
+        item.surveyItemOptions.forEach(option => {
+          handler(option)
+          }
+        )
+      })
+    })
+  }
+
 
   get checkCount(){
     let result = 0;

@@ -2,6 +2,7 @@ package com.mannal.server.controller.survey;
 
 import com.mannal.server.dto.SurveyResultDto;
 import com.mannal.server.entity.survey.SurveyEntity;
+import com.mannal.server.entity.survey.SurveyItemOptionResultEntity;
 import com.mannal.server.entity.survey.SurveyResultEntity;
 import com.mannal.server.service.survey.SurveyService;
 import org.springframework.http.ResponseEntity;
@@ -51,7 +52,33 @@ public class SurveyController {
         return ResponseEntity.ok(surveyService.getResult(requestId));
     }
 
+    @PostMapping("/option")
+    @ResponseBody
+    public ResponseEntity<SurveyResultDto> sendSurveyOptionResult(
+            @RequestBody List<SurveyItemOptionResultEntity> surveyItemOptionResultEntityList
+    ){
+
+        UUID requestId = UUID.randomUUID();
+        LocalDateTime currentTime = LocalDateTime.now();
+
+        surveyItemOptionResultEntityList.forEach(surveyItemOptionResult -> {
+            setSurveyOptionResultDefault(requestId, currentTime, surveyItemOptionResult);
+        });
+
+        surveyService.saveOptionResult(surveyItemOptionResultEntityList);
+//        return ResponseEntity.ok(surveyService.getResult(requestId));
+        return ResponseEntity.ok(surveyService.getOptionResult(requestId));
+    }
+
     private void setSurveyResultDefault(UUID requestId, LocalDateTime currentTime, SurveyResultEntity surveyResult) {
+        surveyResult.setRequestId(requestId);
+        surveyResult.setUseYn("Y");
+        surveyResult.setRegDt(currentTime);
+        surveyResult.setEditDt(currentTime);
+    }
+
+    private void setSurveyOptionResultDefault(UUID requestId, LocalDateTime currentTime, SurveyItemOptionResultEntity surveyResult) {
+        surveyResult.setChecked("true".equals(surveyResult.getChecked()) ? "Y" : "N");
         surveyResult.setRequestId(requestId);
         surveyResult.setUseYn("Y");
         surveyResult.setRegDt(currentTime);

@@ -3,6 +3,7 @@ package com.mannal.server.repository.Impl;
 
 import com.mannal.server.entity.survey.SurveyCategoryEntity;
 import com.mannal.server.entity.survey.SurveyEntity;
+import com.mannal.server.entity.survey.SurveyItemOptionResultEntity;
 import com.mannal.server.entity.survey.SurveyResultEntity;
 import com.mannal.server.repository.SurveyRepository;
 import com.querydsl.jpa.impl.JPAQueryFactory;
@@ -19,6 +20,7 @@ import static com.mannal.server.entity.survey.QSurveyEntity.surveyEntity;
 import static com.mannal.server.entity.survey.QSurveyItemEntity.surveyItemEntity;
 import static com.mannal.server.entity.survey.QSurveyResultEntity.surveyResultEntity;
 import static com.mannal.server.entity.survey.QSurveySubCategoryEntity.surveySubCategoryEntity;
+import static com.mannal.server.entity.survey.QSurveyItemOptionResultEntity.surveyItemOptionResultEntity;
 
 @Repository("surveyRepository")
 public class SurveyRepositoryImpl extends QuerydslRepositorySupport implements SurveyRepository {
@@ -58,10 +60,27 @@ public class SurveyRepositoryImpl extends QuerydslRepositorySupport implements S
     }
 
     @Override
+    @Transactional
+    public void savesOptionResult(List<SurveyItemOptionResultEntity> surveyItemOptionResultEntities) {
+        for (SurveyItemOptionResultEntity resultEntity : surveyItemOptionResultEntities) {
+            em.persist(resultEntity);
+        }
+    }
+
+    @Override
     public List<SurveyResultEntity> findSurveyResult(UUID requestId) {
         return jpaQueryFactory.select(surveyResultEntity)
                 .from(surveyResultEntity)
                 .where(surveyResultEntity.requestId.eq(requestId))
+                .fetch()
+                ;
+    }
+
+    @Override
+    public List<SurveyItemOptionResultEntity> findSurveyOptionResult(UUID requestId) {
+        return jpaQueryFactory.select(surveyItemOptionResultEntity)
+                .from(surveyItemOptionResultEntity)
+                .where(surveyItemOptionResultEntity.requestId.eq(requestId))
                 .fetch()
                 ;
     }

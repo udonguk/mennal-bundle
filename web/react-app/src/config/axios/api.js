@@ -15,7 +15,6 @@ axiosToApi.defaults.xsrfHeaderName = 'X-XSRF-TOKEN';
 
 axiosToApi.interceptors.request.use(
   function(config){
-    console.debug('config', config)
     return config;
   }
 )

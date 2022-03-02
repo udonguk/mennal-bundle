@@ -3,6 +3,7 @@ package com.mannal.server.service.survey;
 import com.mannal.server.dto.SurveyResultDto;
 import com.mannal.server.entity.survey.SurveyCategoryEntity;
 import com.mannal.server.entity.survey.SurveyEntity;
+import com.mannal.server.entity.survey.SurveyItemOptionResultEntity;
 import com.mannal.server.entity.survey.SurveyResultEntity;
 
 import java.util.List;
@@ -15,5 +16,9 @@ public interface SurveyService {
 
     void saveResult(List<SurveyResultEntity> surveyResultEntityList);
 
+    void saveOptionResult(List<SurveyItemOptionResultEntity> surveyItemOptionResultEntityList);
+
     SurveyResultDto getResult(UUID requestId);
+
+    SurveyResultDto getOptionResult(UUID requestId);
 }
