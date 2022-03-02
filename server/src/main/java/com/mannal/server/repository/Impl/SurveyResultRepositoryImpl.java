@@ -12,7 +12,8 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 @Repository("surveyResultRepository")
-public class SurveyResultRepositoryImpl extends QuerydslRepositorySupport implements SurveyResultRepository {
+public class SurveyResultRepositoryImpl extends QuerydslRepositorySupport
+        implements SurveyResultRepository {
 
     private final JPAQueryFactory jpaQueryFactory;
 

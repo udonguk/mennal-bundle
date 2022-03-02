@@ -4,6 +4,7 @@ import com.mannal.server.dto.FactionDto;
 import com.mannal.server.dto.SurveyResultDto;
 import com.mannal.server.entity.survey.*;
 import com.mannal.server.repository.SurveyCategoryRepository;
+import com.mannal.server.repository.SurveyItemOptionRepository;
 import com.mannal.server.repository.SurveyRepository;
 import com.mannal.server.repository.SurveySubResultRepository;
 import com.mannal.server.service.survey.SurveyService;
@@ -20,14 +21,17 @@ public class SurveyServiceImpl implements SurveyService {
 
     private final SurveyRepository surveyRepository;
 
+    private final SurveyItemOptionRepository surveyItemOptionRepository;
+
     private final SurveySubResultRepository surveySubResultRepository;
 
     public SurveyServiceImpl(SurveyCategoryRepository surveyCategoryRepository
             , SurveyRepository surveyRepository
-            , SurveySubResultRepository surveySubResultRepository
+            , SurveyItemOptionRepository surveyItemOptionRepository, SurveySubResultRepository surveySubResultRepository
     ) {
         this.surveyCategoryRepository = surveyCategoryRepository;
         this.surveyRepository = surveyRepository;
+        this.surveyItemOptionRepository = surveyItemOptionRepository;
         this.surveySubResultRepository = surveySubResultRepository;
     }
 
@@ -48,6 +52,11 @@ public class SurveyServiceImpl implements SurveyService {
 
     @Override
     public void saveOptionResult(List<SurveyItemOptionResultEntity> surveyItemOptionResultEntityList) {
+        for (SurveyItemOptionResultEntity surveyItemOptionResult : surveyItemOptionResultEntityList) {
+            surveyItemOptionResult.setSurveyItemOptionEntity(
+                    surveyItemOptionRepository.get(surveyItemOptionResult.getSurveyItemOptionEntity().getId())
+            );
+        }
         surveyRepository.savesOptionResult(surveyItemOptionResultEntityList);
     }
 
@@ -68,7 +77,7 @@ public class SurveyServiceImpl implements SurveyService {
 
     @Override
     public SurveyResultDto getOptionResult(UUID requestId) {
-        List<SurveyResultEntity> surveyResultEntities = surveyRepository.findSurveyResult(requestId);
+        List<SurveyItemOptionResultEntity> surveyResultEntities = surveyRepository.findSurveyOptionResult(requestId);
         SurveyEntity surveyEntity = surveyRepository.findSurveyByResult(requestId);
 
         assembleResultToSurveyEntity(surveyResultEntities, surveyEntity);

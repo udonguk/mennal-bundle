@@ -56,6 +56,9 @@ export class SurveyItemOptionDomain {
     return {
       surveyItemOptionId: this.id,
       checked: this.isChecked,
+      surveyItemOptionEntity: {
+        id: this.id
+      }
     }
   }
 

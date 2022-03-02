@@ -59,10 +59,6 @@ public class SurveyItemOptionEntity implements Serializable {
     @JoinColumn(name="survey_item_id")
     private SurveyItemEntity surveyItemEntity;
 
-    @OneToMany
-    @JoinColumn(name="survey_item_option_result_id")
-    private List<SurveyItemOptionResultEntity> surveyItemOptionResultEntities;
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

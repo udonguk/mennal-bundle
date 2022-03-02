@@ -45,7 +45,6 @@ public class SurveySubResultRepositoryImpl extends QuerydslRepositorySupport imp
                         surveySubResultEntity.minScore,
                         surveySubResultEntity.maxScore))
                 .where(surveySubResultEntity.surveySubCategoryId.eq(surveySubCategoryId))
-                .fetchOne()
-                ;
+                .fetchOne();
     }
 }

@@ -1,11 +1,11 @@
 version: '3'
 
 services:
-  mannal-db-postgres:
+  mennal-db-postgres:
     environment:
       POSTGRES_USER: 'postgres'
       POSTGRES_PASSWORD: '1234'
-      image: mannal-postgres
+      image: mennal-postgres
     build:
       context: ./
       dockerfile: ./Dockerfile

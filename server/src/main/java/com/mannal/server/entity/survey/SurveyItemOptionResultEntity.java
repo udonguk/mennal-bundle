@@ -36,9 +36,6 @@ public class SurveyItemOptionResultEntity implements Serializable {
     private UUID id;
 
     @Column
-    private UUID surveyItemOptionId;
-
-    @Column
     private UUID requestId;
 
     @Column
@@ -61,6 +58,10 @@ public class SurveyItemOptionResultEntity implements Serializable {
 
     @Column
     private LocalDateTime delDt;
+
+    @ManyToOne
+    @JoinColumn(name="survey_item_option_id")
+    private SurveyItemOptionEntity surveyItemOptionEntity;
 
     @Override
     public boolean equals(Object o) {

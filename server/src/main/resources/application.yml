@@ -6,8 +6,8 @@ spring:
       enabled: true
   datasource:
     driver-class-name: net.sf.log4jdbc.sql.jdbcapi.DriverSpy
-    url: jdbc:log4jdbc:postgresql://localhost:5435/mannal
-    username: mannal
+    url: jdbc:log4jdbc:postgresql://localhost:5435/mennal
+    username: mennal
     password: 1234
     hikari:
       poolName: Hikari

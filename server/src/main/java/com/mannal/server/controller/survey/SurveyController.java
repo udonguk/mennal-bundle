@@ -2,6 +2,7 @@ package com.mannal.server.controller.survey;
 
 import com.mannal.server.dto.SurveyResultDto;
 import com.mannal.server.entity.survey.SurveyEntity;
+import com.mannal.server.entity.survey.SurveyItemOptionEntity;
 import com.mannal.server.entity.survey.SurveyItemOptionResultEntity;
 import com.mannal.server.entity.survey.SurveyResultEntity;
 import com.mannal.server.service.survey.SurveyService;
