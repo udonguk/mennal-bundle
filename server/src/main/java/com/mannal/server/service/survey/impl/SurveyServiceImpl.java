@@ -10,9 +10,8 @@ import com.mannal.server.repository.SurveySubResultRepository;
 import com.mannal.server.service.survey.SurveyService;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.UUID;
+import java.util.*;
+import java.util.stream.Collectors;
 
 @Service("surveyService")
 public class SurveyServiceImpl implements SurveyService {
@@ -78,9 +77,22 @@ public class SurveyServiceImpl implements SurveyService {
     @Override
     public SurveyResultDto getOptionResult(UUID requestId) {
         List<SurveyItemOptionResultEntity> surveyResultEntities = surveyRepository.findSurveyOptionResult(requestId);
-        SurveyEntity surveyEntity = surveyRepository.findSurveyByResult(requestId);
+        SurveyEntity surveyEntity = surveyResultEntities.get(0)
+                .getSurveyItemOptionEntity()
+                .getSurveyItemEntity()
+                .getSurveySubCategoryEntity()
+                .getSurveyEntity();
 
-        assembleResultToSurveyEntity(surveyResultEntities, surveyEntity);
+        /*
+         D_Stype 1 이 countif(ExamExe01>ExamExe02) 일때,
+ D_Stype 2 이 countif(ExamExe01>ExamExe02)
+ D_Stype 3 이 countif(ExamExe01>ExamExe02)
+ D_Stype 4 이 countif(ExamExe01>ExamExe02) 이면 , 결과값 D_Ttype1, D_Stype1, D_Rtype1~4
+
+         */
+
+        Map<String, Map<String, Long>> cntBySubCategory = getCounts(surveyResultEntities, surveyEntity);
+
         List<FactionDto> factionDtos = getFactions(surveyEntity);
 
         return SurveyResultDto.builder()
@@ -88,6 +100,34 @@ public class SurveyServiceImpl implements SurveyService {
                 .categoryId(surveyEntity.getId())
                 .categoryType(surveyEntity.getTitle())
                 .build();
+    }
+
+    private Map<String, Map<String, Long>> getCounts(List<SurveyItemOptionResultEntity> surveyResultEntities, SurveyEntity surveyEntity) {
+        Map<String, Map<String, Long>> result = new HashMap<>();
+        for(SurveySubCategoryEntity subCategory : surveyEntity.getSurveySubCategories()){
+            result.put(subCategory.getCode(), getCountByMap(surveyResultEntities, subCategory));
+        }
+
+        return result;
+    }
+
+    private Map<String, Long> getCountByMap(List<SurveyItemOptionResultEntity> surveyResultEntities, SurveySubCategoryEntity subCategory) {
+        Map<String, Long> result = new HashMap<>();
+        result.put("total", (long) subCategory.getSurveyItemEntities().size());
+        for(SurveyItemEntity surveyItem : subCategory.getSurveyItemEntities()){
+
+            List<SurveyItemOptionEntity> surveyItemOptions = surveyItem.getSurveyItemOptionEntities();
+            for(SurveyItemOptionEntity surveyItemOption : surveyItemOptions) {
+
+                Long cnt = null == result.get(surveyItemOption.getOrderNum().toString()) ? 0L : result.get(surveyItemOption.getOrderNum().toString());
+                cnt += surveyResultEntities.stream()
+                        .filter(surveyResult -> surveyResult.getSurveyItemOptionEntity().equals(surveyItemOption)
+                                && "Y".equals(surveyResult.getChecked()))
+                        .count();
+                result.put(surveyItemOption.getOrderNum().toString(), cnt);
+            }
+        }
+        return result;
     }
 
 
