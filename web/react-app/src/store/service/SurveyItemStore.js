@@ -71,18 +71,7 @@ export class SurveyItemStore {
     }
   }
 
-  sendSurvey(successHandler){
-    console.debug('start sendSurvy');
-    let param = []
-    this.itemLooper((item) => {
-      param.push(item.resultJson)
-    })
-    console.debug('param', param)
-    axiosToApi.post('/survey', param)
-      .then(res => this.result = res.data)
-  }
-
-  sendSurvey2(){
+  sendSurvey(){
     console.debug('start sendSurvy22');
     let param = []
     this.optionLooper((item) => {
@@ -140,30 +129,4 @@ export class SurveyItemStore {
   get progressPercent() {
     return this.checkCount/this.itemCount * 100
   }
-
-//   axios.get(`${url}?${paramParser(sortedParams)}`)
-// .then(res => {
-// runInAction(() => {
-// !this.isSameSearchHistory(this.searchValue) && this.setPage(0)
-// handler(res)
-// })
-// })
-// .catch(error => {
-// if (errorHandler) {
-// errorHandler(error)
-// } else {
-// try {
-// const {message} = error['response']['data']
-// const result = {status: RESULT_ERROR, message, result: false}
-// console.debug('error result', result)
-// } catch (e) {
-// console.debug('unknown error', e)
-// }
-// }
-// })
-// .finally(() => {
-// this.addSearchValueHistory(this.searchValue)
-// this.setLoading(false)
-// finalHandler()
-// })
 }

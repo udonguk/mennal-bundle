@@ -4,7 +4,7 @@ package com.mannal.server.repository.Impl;
 import com.mannal.server.entity.survey.SurveyCategoryEntity;
 import com.mannal.server.entity.survey.SurveyEntity;
 import com.mannal.server.entity.survey.SurveyItemOptionResultEntity;
-import com.mannal.server.entity.survey.SurveyResultEntity;
+import com.mannal.server.entity.survey.SurveyItemResultEntity;
 import com.mannal.server.repository.SurveyRepository;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import org.springframework.data.jpa.repository.support.QuerydslRepositorySupport;
@@ -18,9 +18,9 @@ import java.util.UUID;
 
 import static com.mannal.server.entity.survey.QSurveyEntity.surveyEntity;
 import static com.mannal.server.entity.survey.QSurveyItemEntity.surveyItemEntity;
-import static com.mannal.server.entity.survey.QSurveyResultEntity.surveyResultEntity;
-import static com.mannal.server.entity.survey.QSurveySubCategoryEntity.surveySubCategoryEntity;
 import static com.mannal.server.entity.survey.QSurveyItemOptionResultEntity.surveyItemOptionResultEntity;
+import static com.mannal.server.entity.survey.QSurveyItemResultEntity.surveyItemResultEntity;
+import static com.mannal.server.entity.survey.QSurveySubCategoryEntity.surveySubCategoryEntity;
 
 @Repository("surveyRepository")
 public class SurveyRepositoryImpl extends QuerydslRepositorySupport implements SurveyRepository {
@@ -47,8 +47,8 @@ public class SurveyRepositoryImpl extends QuerydslRepositorySupport implements S
 
     @Override
     @Transactional
-    public void saves(List<SurveyResultEntity> surveyResultEntityList) {
-        for (SurveyResultEntity resultEntity : surveyResultEntityList) {
+    public void saves(List<SurveyItemResultEntity> surveyItemResultEntityList) {
+        for (SurveyItemResultEntity resultEntity : surveyItemResultEntityList) {
 //            SurveyItemEntity surveyItem = jpaQueryFactory.select(surveyItemEntity)
 //                    .from(surveyItemEntity)
 //                    .where(surveyItemEntity.id.eq(resultEntity.getSurveyItemId()))
@@ -68,10 +68,10 @@ public class SurveyRepositoryImpl extends QuerydslRepositorySupport implements S
     }
 
     @Override
-    public List<SurveyResultEntity> findSurveyResult(UUID requestId) {
-        return jpaQueryFactory.select(surveyResultEntity)
-                .from(surveyResultEntity)
-                .where(surveyResultEntity.requestId.eq(requestId))
+    public List<SurveyItemResultEntity> findSurveyItemResult(UUID requestId) {
+        return jpaQueryFactory.select(surveyItemResultEntity)
+                .from(surveyItemResultEntity)
+                .where(surveyItemResultEntity.requestId.eq(requestId))
                 .fetch()
                 ;
     }
@@ -93,9 +93,9 @@ public class SurveyRepositoryImpl extends QuerydslRepositorySupport implements S
                     .on(surveySubCategoryEntity.surveyEntity.eq(surveyEntity))
                 .join(surveyItemEntity)
                     .on(surveyItemEntity.surveySubCategoryEntity.eq(surveySubCategoryEntity))
-                .join(surveyResultEntity)
-                    .on(surveyResultEntity.surveyItemId.eq(surveyItemEntity.id))
-                .where(surveyResultEntity.requestId.eq(requestId))
+                .join(surveyItemResultEntity)
+                    .on(surveyItemResultEntity.surveyItemId.eq(surveyItemEntity.id))
+                .where(surveyItemResultEntity.requestId.eq(requestId))
                 .fetch()
                 .get(0)
                 ;

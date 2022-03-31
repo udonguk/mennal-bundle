@@ -57,4 +57,10 @@
         </loadData>
     </changeSet>
 
+    <changeSet id="survey_item_option-002" author="donguk">
+        <addColumn tableName="survey_item_option">
+            <column name="option_type" type="${varcharType}(100)" />
+        </addColumn>
+    </changeSet>
+
 </databaseChangeLog>

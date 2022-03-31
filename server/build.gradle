@@ -38,6 +38,8 @@ dependencies {
     testImplementation 'org.springframework.restdocs:spring-restdocs-mockmvc'
     testImplementation 'org.springframework.security:spring-security-test'
     implementation "org.bgee.log4jdbc-log4j2:log4jdbc-log4j2-jdbc4.1:1.16"
+    implementation group: 'com.vladmihalcea', name: 'hibernate-types-55', version: '2.12.1'
+    implementation group: 'net.objecthunter', name: 'exp4j', version: '0.4.8'
 
     runtimeOnly "com.zaxxer:HikariCP:5.0.0"
 

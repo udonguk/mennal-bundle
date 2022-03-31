@@ -2,6 +2,7 @@ import {action, makeAutoObservable, observable} from "mobx";
 
 export class SurveyItemOptionDomain {
   id = ""
+  // todo _optionType = ""
   title = ""
   score = 0
   orderNum = 0

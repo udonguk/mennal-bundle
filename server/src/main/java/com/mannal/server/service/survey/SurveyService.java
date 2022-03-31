@@ -4,7 +4,7 @@ import com.mannal.server.dto.SurveyResultDto;
 import com.mannal.server.entity.survey.SurveyCategoryEntity;
 import com.mannal.server.entity.survey.SurveyEntity;
 import com.mannal.server.entity.survey.SurveyItemOptionResultEntity;
-import com.mannal.server.entity.survey.SurveyResultEntity;
+import com.mannal.server.entity.survey.SurveyItemResultEntity;
 
 import java.util.List;
 import java.util.UUID;
@@ -14,11 +14,7 @@ public interface SurveyService {
 
     SurveyEntity findSurvey(UUID categoryId);
 
-    void saveResult(List<SurveyResultEntity> surveyResultEntityList);
-
     void saveOptionResult(List<SurveyItemOptionResultEntity> surveyItemOptionResultEntityList);
-
-    SurveyResultDto getResult(UUID requestId);
 
     SurveyResultDto getOptionResult(UUID requestId);
 }

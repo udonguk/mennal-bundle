@@ -1,5 +1,6 @@
 package com.mannal.server.dto;
 
+import com.mannal.server.entity.survey.SurveyResultEntity;
 import lombok.Builder;
 import lombok.Data;
 
@@ -11,5 +12,7 @@ import java.util.UUID;
 public class SurveyResultDto {
     UUID categoryId;
     String categoryType;
-    List<FactionDto> factionList;
+    String graphType;
+    List<List<FactionDto>> factionList;
+    List<SurveyResultEntity> resultList;
 }

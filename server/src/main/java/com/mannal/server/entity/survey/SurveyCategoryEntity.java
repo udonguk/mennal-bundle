@@ -19,6 +19,8 @@ import java.util.UUID;
 @Table(name = "survey_category")
 public class SurveyCategoryEntity implements Serializable {
 
+    private static final long serialVersionUID = -7483469122114981510L;
+
     @Id
     @GeneratedValue(generator = "UUID")
     @GenericGenerator(

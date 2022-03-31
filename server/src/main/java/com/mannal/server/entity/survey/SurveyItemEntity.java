@@ -24,6 +24,7 @@ import java.util.UUID;
 @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
 public class SurveyItemEntity implements Serializable {
 
+    private static final long serialVersionUID = -7635881858924252965L;
     @Id
     @GeneratedValue(generator = "UUID")
     @GenericGenerator(
@@ -76,5 +77,5 @@ public class SurveyItemEntity implements Serializable {
     }
 
     @Transient
-    private List<SurveyResultEntity> surveyResultEntities;
+    private List<SurveyItemResultEntity> surveyResultEntities;
 }

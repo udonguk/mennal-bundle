@@ -2,19 +2,19 @@ package com.mannal.server.entity.survey;
 
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
-import com.mannal.server.constance.ApplicationCoreConstant;
 import com.sun.istack.NotNull;
+import com.vladmihalcea.hibernate.type.json.JsonBinaryType;
 import lombok.*;
 import org.hibernate.Hibernate;
 import org.hibernate.annotations.ColumnDefault;
 import org.hibernate.annotations.GenericGenerator;
-import org.hibernate.annotations.UpdateTimestamp;
-import org.springframework.format.annotation.DateTimeFormat;
+import org.hibernate.annotations.Type;
+import org.hibernate.annotations.TypeDef;
 
 import javax.persistence.*;
 import java.io.Serializable;
-import java.time.LocalDate;
-import java.time.LocalDateTime;
+import java.util.Date;
+import java.util.List;
 import java.util.Objects;
 import java.util.UUID;
 
@@ -24,9 +24,12 @@ import java.util.UUID;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(name = "survey_item_result")
+@Table(name = "survey_result")
 @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
+@TypeDef(name="jsonb", typeClass = JsonBinaryType.class)
 public class SurveyResultEntity implements Serializable {
+
+    private static final long serialVersionUID = 2216904155643294978L;
 
     @Id
     @GeneratedValue(generator = "UUID")
@@ -34,47 +37,36 @@ public class SurveyResultEntity implements Serializable {
             name = "UUID",
             strategy = "org.hibernate.id.UUIDGenerator"
     )
-    @Column(name="survey_item_result_id", updatable = false, nullable = false)
+    @Column(name="survey_result_id", updatable = false, nullable = false)
     private UUID id;
 
     @NotNull
     @Column
-    private UUID surveyItemId;
+    private UUID surveyCategoryId;
 
     @NotNull
     @Column
-    private UUID requestId;
+    @Type(type="jsonb")
+    private List<Role> role;
 
-    @NotNull
     @Column
-    private String type;
+    private String title;
 
-    @NotNull
     @Column
-    private Integer totalScore;
+    private String content;
 
     @Column
     @ColumnDefault("Y")
     private String useYn;
 
     @Column
-    @DateTimeFormat(pattern = ApplicationCoreConstant.DEFAULT_TIMESTAMP)
-    @UpdateTimestamp
-    private LocalDateTime regDt;
+    private Date regDt;
 
     @Column
-    @DateTimeFormat(pattern = ApplicationCoreConstant.DEFAULT_TIMESTAMP)
-    @UpdateTimestamp
-    private LocalDateTime editDt;
+    private Date editDt;
 
     @Column
-    private LocalDateTime delDt;
-
-//    @NotNull
-//    @ManyToOne
-//    @JoinColumn(name="survey_item_id")
-//    private SurveyItemEntity surveyItemEntity;
-
+    private Date delDt;
 
     @Override
     public boolean equals(Object o) {
