@@ -50,6 +50,9 @@ public class SurveyEntity implements Serializable {
     @Column
     private Date delDt;
 
+    @Column
+    private String graphType;
+
     @OneToMany(mappedBy = "surveyEntity")
     private List<SurveySubCategoryEntity> surveySubCategories;
 

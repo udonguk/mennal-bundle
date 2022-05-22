@@ -30,4 +30,10 @@
             <column name="survey_result_id" />
         </createIndex>
     </changeSet>
+
+    <changeSet id="survey_result-002" author="donguk">
+        <addColumn tableName="survey_result">
+            <column name="sub_title" type="${varcharType}(100)" remarks="제목" />
+        </addColumn>
+    </changeSet>
 </databaseChangeLog>

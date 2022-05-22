@@ -71,12 +71,6 @@ public class SurveyItemResultEntity implements Serializable {
     @Column
     private LocalDateTime delDt;
 
-//    @NotNull
-//    @ManyToOne
-//    @JoinColumn(name="survey_item_id")
-//    private SurveyItemEntity surveyItemEntity;
-
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

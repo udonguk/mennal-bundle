@@ -46,6 +46,11 @@
         </loadData>
     </changeSet>
 
+    <changeSet id="survey_category-002" author="udonguk">
+        <addColumn tableName="survey_category">
+            <column name="graph_type" type="${varcharType}(100)" remarks="출력될 그래프 타입" />
+        </addColumn>
+    </changeSet>
 
 
 </databaseChangeLog>

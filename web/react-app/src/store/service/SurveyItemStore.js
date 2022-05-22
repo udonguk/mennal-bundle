@@ -12,17 +12,82 @@ export class SurveyItemStore {
   isResultLoading = false;
   result = {
     categoryType: '',
-    factionList: []
+    graphType: '',
+    factionList: [],
+    resultList: []
+  }
+
+  get surveyResult () {
+    if(_.isNil(this.result.resultList) || 0 === this.result.resultList.length){
+      return []
+    }
+    return this.result.resultList
+  }
+
+  get graphType () {
+    if(_.isNil(this.result) || _.isNil(this.result.graphType)){
+      return null
+    }
+    return this.result.graphType
+  }
+
+  get barGraphFormat () {
+    return this.result.factionList.map(item => {
+      let faction = {}
+      item.forEach(item2 => {
+        faction.title = _.isNil(faction.title) ? item2.resultType : `${faction.title}|${item2.resultType}`
+        faction[item2.resultType] = item2.score
+      })
+      console.debug('faction', faction)
+      return faction
+    })
+  }
+
+  get barRangeGraphFormat () {
+    const result = this.result.factionList.map(item => {
+      let faction = {}
+      const totalScore = item.reduce((previous, current) => previous + current.score, 0)
+      item.forEach(answer => {
+        if('네' === answer.title) {
+          faction.title = _.isNil(faction.title) && answer.resultType
+          faction[answer.resultType] = Math.floor((answer.score / totalScore) * 10)
+        }
+      })
+      return faction
+    })
+
+    console.log(result)
+
+    return result
+  }
+
+
+  get barGraphKeys () {
+    let result = []
+    this.result.factionList.map(item => {
+        item.forEach(item2 => result.push(item2.resultType))
+    })
+
+    console.debug('keys', result)
+    return result
+  }
+
+  get barRangeGraphKeys () {
+    let result = []
+    this.result.factionList.map(item => {
+        item.forEach(answer => {
+          if('네' === answer.title){
+            result.push(answer.resultType)
+          }
+        })
+    })
+
+    console.log('keys', result)
+    return result
   }
 
   get graphFormat () {
-    console.debug('format', this.result.factionList.map(item => {
-      return {
-        score: item.score,
-        faction: item.itemType
-      }
-    }))
-
+    console.debug('format', this.result)
     return this.result.factionList.map(item => {
       return {
         score: item.score,
@@ -72,12 +137,10 @@ export class SurveyItemStore {
   }
 
   sendSurvey(){
-    console.debug('start sendSurvy22');
     let param = []
     this.optionLooper((item) => {
       param.push(item.resultJson)
     })
-    console.debug('param', param)
     axiosToApi.post('/survey/option', param)
       .then(res => this.result = res.data)
   }
@@ -103,10 +166,7 @@ export class SurveyItemStore {
     if(_.isNil(this.survey.surveySubCategories)) return
     this.survey.surveySubCategories.forEach(surveySubCategory => {
       surveySubCategory.surveyItems.forEach(item => {
-        item.surveyItemOptions.forEach(option => {
-          handler(option)
-          }
-        )
+        item.surveyItemOptions.forEach(option => handler(option))
       })
     })
   }
@@ -124,6 +184,7 @@ export class SurveyItemStore {
     let result = 0;
     this.itemLooper((item) => result ++)
     return result
+
   }
 
   get progressPercent() {

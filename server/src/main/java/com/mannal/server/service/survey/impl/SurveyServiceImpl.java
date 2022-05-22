@@ -86,7 +86,7 @@ public class SurveyServiceImpl implements SurveyService {
         });
 
         return SurveyResultDto.builder()
-                .graphType("bar")
+                .graphType(surveyEntity.getGraphType())
                 .factionList(factionDtoList)
                 .resultList(resultList)
                 .categoryId(surveyEntity.getId())

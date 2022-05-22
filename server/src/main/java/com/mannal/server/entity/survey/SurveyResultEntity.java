@@ -53,6 +53,9 @@ public class SurveyResultEntity implements Serializable {
     private String title;
 
     @Column
+    private String subTitle;
+
+    @Column
     private String content;
 
     @Column

@@ -48,6 +48,9 @@ public class SurveyCategoryEntity implements Serializable {
     @Column
     private Date delDt;
 
+    @Column
+    private String graphType;
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
