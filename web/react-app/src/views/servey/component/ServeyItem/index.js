@@ -18,6 +18,7 @@ const SurveyItem = observer(({item, index}) => {
           {item.surveyItemOptions.map(option =>
             <Grid item xs={6} key={option.id}>
               <Button
+                id={`[id]${option.id}[order]${option.orderNum}`}
                 key ={option.id}
                 variant={'contained'}
                 onClick={() => {

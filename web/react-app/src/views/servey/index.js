@@ -10,7 +10,7 @@ const Survey = observer(() => {
   // const store = useContext(GlobalStoreContext);
   const store = useContext(StoresContext);
   const surveyItemStore = store.surveyItemStore
-  const surveyCategoryStore = store.surveyCategoryStore
+  // const surveyCategoryStore = store.surveyCategoryStore
 
 
   const showResultOnClick = () => {
@@ -38,8 +38,9 @@ const Survey = observer(() => {
       <Typography>
         {surveyItemStore.parent.parent}
       </Typography>
-      <Outlet id={'surveyItems'}/>
+      <Outlet id='surveyItems'/>
       <Button variant={'contained'}
+              id='getResultButton'
               disabled={100 !== surveyItemStore.progressPercent}
               onClick={showResultOnClick}
               fullWidth

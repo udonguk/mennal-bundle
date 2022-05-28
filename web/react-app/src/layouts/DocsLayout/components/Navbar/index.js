@@ -34,6 +34,7 @@ const Navbar = observer(() => {
         <AppBar enableColorOnDark position="fixed">
           <Toolbar>
             <IconButton
+              id='menuButton'
               size="large"
               edge="start"
               color="inherit"
@@ -73,7 +74,7 @@ const Navbar = observer(() => {
                   {surveyCategoryStore.surveyCategories.map((item) => {
                     return (
                       <ListItem
-                        button
+                        id={`/survey/${item.code}`}
                         key={item.id}
                         component={Link}
                         to={`/survey/${item.code}`}
