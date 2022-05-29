@@ -1,6 +1,6 @@
 import _ from 'lodash';
 import {THEMES} from "../constants";
-import {colors, createTheme} from "@mui/material";
+import {createTheme} from "@mui/material";
 
 const themesOptions = [
   {
@@ -8,23 +8,17 @@ const themesOptions = [
     palette: {
       type: 'light',
       primary: {
-        main: '#673ab7',
+        main: '#000000',
       },
       secondary: {
-        main: '#9575cd',
+        main: '#671bf1',
       },
       info: {
         main: '#2196f3',
       },
-      background: {
-        default: colors.common.white,
-        dark: '#f4f6f8',
-        paper: colors.common.white
+      success: {
+        main: '#4caf50',
       },
-      text: {
-        primary: colors.blueGrey[900],
-        secondary: colors.blueGrey[600]
-      }
     },
   },
   {
@@ -32,24 +26,18 @@ const themesOptions = [
     palette: {
       type: 'dark',
       primary: {
-        main: '#673ab7',
-      },
-      background: {
-        default: '#2a2d3d',
-        dark: '#222431',
-        paper: '#2a2d3d'
+        main: '#000000',
       },
       secondary: {
-        main: '#9575cd',
+        main: '#671bf1',
       },
       info: {
         main: '#2196f3',
       },
-      text: {
-        primary: '#f6f5f8',
-        secondary: '#9699a4'
-      }
-    }
+      success: {
+        main: '#4caf50',
+      },
+    },
   }
 ]
 
@@ -62,17 +50,11 @@ export const createThemeByConfig = (config = {}) => {
     [themeOptions] = themesOptions;
   }
 
-  let theme = createTheme(
+  return createTheme(
     _.merge(
       {},
       themeOptions
       // ,{ direction: config.direction }
     )
   );
-
-  // if (config.responsiveFontSizes) {
-  //   theme = responsiveFontSizes(theme);
-  // }
-
-  return theme;
 }

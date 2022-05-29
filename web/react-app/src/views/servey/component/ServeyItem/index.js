@@ -28,7 +28,7 @@ const SurveyItem = observer(({item, index}) => {
                     setIsChecked(true)
                   }
                 }}
-                color={option.isChecked ? 'success' : 'secondary'}
+                color={option.isChecked ? 'secondary' : 'primary'}
                 fullWidth>
                 {option.title}
               </Button>

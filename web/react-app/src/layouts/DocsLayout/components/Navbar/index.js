@@ -82,7 +82,7 @@ const Navbar = observer(() => {
                         <ListItemIcon>
                           <ArticleIcon />
                         </ListItemIcon>
-                        <ListItemText primary={item.title} />
+                        <ListItemText disableTypography primary={<Typography color={"text.primary"}>{item.title}</Typography>}/>
                       </ListItem>
                     )
                   })}
