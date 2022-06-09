@@ -51,6 +51,9 @@ public class SurveyCategoryEntity implements Serializable {
     @Column
     private String graphType;
 
+    @Column
+    private int orderNum;
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

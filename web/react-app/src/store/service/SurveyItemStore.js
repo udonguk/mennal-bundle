@@ -13,6 +13,7 @@ export class SurveyItemStore {
   result = {
     categoryType: '',
     graphType: '',
+    orderNum: 0,
     factionList: [],
     resultList: []
   }
@@ -22,6 +23,13 @@ export class SurveyItemStore {
       return []
     }
     return this.result.resultList
+  }
+
+  get orderNum () {
+    if(_.isNil(this.orderNum) || _.isNil(this.result.orderNum)){
+      return null
+    }
+    return this.result.orderNum
   }
 
   get graphType () {

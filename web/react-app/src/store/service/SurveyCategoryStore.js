@@ -26,7 +26,9 @@ export class SurveyCategoryStore {
     runInAction(async () => {
       0 === this.surveyCategories.length && this.getSurveyCategories((res) => {
         this.surveyCategories = [];
-        res.data.forEach(item => {
+        res.data
+          .sort((prev, next) => prev.orderNum > next.orderNum ? 1 : -1)
+          .forEach(item => {
           this.setCategoryFromServer(item);
         })
         this.isLoading = false

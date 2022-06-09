@@ -52,5 +52,11 @@
         </addColumn>
     </changeSet>
 
+    <changeSet id="survey_category-003" author="udonguk">
+        <addColumn tableName="survey_category">
+            <column name="order_num" type="number" remarks="순서" />
+        </addColumn>
+    </changeSet>
+
 
 </databaseChangeLog>
