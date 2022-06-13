@@ -77,7 +77,9 @@ export class SurveyItemDomain {
   setSurveyItemOptions(item) {
     this.surveyItemOptions = []
     if (!_.isNil(item.surveyItemOptionEntities)) {
-      item.surveyItemOptionEntities.forEach(
+      item.surveyItemOptionEntities
+        .sort((prev, next) => prev.orderNum > next.orderNum ? 1 : -1)
+        .forEach(
         surveyItemOption => this.surveyItemOptions.push(new SurveyItemOptionDomain(this, surveyItemOption)))
     }
   }
