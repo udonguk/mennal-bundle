@@ -29,7 +29,7 @@ public class Run {
         WebElement menuButton = driver.findElement(By.id("menuButton"));
         menuButton.click();
 
-        WebElement categoryButton = driver.findElement(By.id("/survey/04"));
+        WebElement categoryButton = driver.findElement(By.id("/survey/01"));
         categoryButton.click();
 
         // Xpath 를 이용해서 아이디를 패턴으로 가져 왔다.

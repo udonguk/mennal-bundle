@@ -3,14 +3,13 @@ import {
   AppBar,
   Box,
   ButtonBase,
-  Container, Icon,
+  Container,
   IconButton,
   List,
-  ListItem,
+  ListItemButton,
   ListItemIcon,
   ListItemText,
   styled,
-  SvgIcon,
   SwipeableDrawer,
   Toolbar,
   Typography
@@ -19,9 +18,8 @@ import MenuIcon from "@mui/icons-material/Menu";
 import {Link, Outlet} from "react-router-dom";
 import {observer} from "mobx-react";
 import {StoresContext} from "../../../../store/RootStore";
-import test from "../../../../resources/icons/free-animated-icon-checklist.png"
 import ArticleIcon from '@mui/icons-material/Article';
-
+import ListItem from "@mui/material/ListItem";
 
 const Navbar = observer(() => {
     const store = useContext(StoresContext);
@@ -53,9 +51,9 @@ const Navbar = observer(() => {
                         to={`/`}
             >
               <Typography
-                variant="h6"
+                variant="h5"
                 component="div"
-                sx={{ flexGrow: 1 }}
+                sx={{ flexGrow: 1, fontFamily: 'Vitro_core'}}
               >
                 맨날
               </Typography>
@@ -73,21 +71,29 @@ const Navbar = observer(() => {
                 role={'presentation'}
               >
                 <List>
-                  {surveyCategoryStore.surveyCategories.map((item) => {
+                  {surveyCategoryStore.surveyCategories.map((item, index) => {
                     return (
-                      <ListItem
-                        id={`/survey/${item.code}`}
-                        key={item.id}
-                        component={Link}
-                        to={`/survey/${item.code}`}
-                      >
-                        <ListItemIcon>
-                          {/*<Icon>*/}
-                          {/*  <img src={test} alt={'aaa'} style={{maxWidth: '100%', maxHeight: '100%'}}/>*/}
-                          {/*</Icon>*/}
-                          <ArticleIcon />
-                        </ListItemIcon>
-                        <ListItemText disableTypography primary={<Typography color={"text.primary"}>{item.title}</Typography>}/>
+                      <ListItem key={`listitem-${index}`}
+                        disablePadding>
+                        <ListItemButton
+                          sx={{ '&:hover': {
+                              backgroundColor: 'primary.secondary'
+                            }}}
+                          id={`/survey/${item.code}`}
+                          key={item.id}
+                          component={Link}
+                          to={`/survey/${item.code}`}
+                        >
+                          <ListItemIcon>
+                            <ArticleIcon color={'primary'}/>
+                          </ListItemIcon>
+                          <ListItemText disableTypography
+                                        primary={
+                            <Typography color={"text.primary"} variant="body" sx={{ fontFamily: 'Vitro_core'}}>
+                              {item.title}
+                            </Typography>
+                          }/>
+                        </ListItemButton>
                       </ListItem>
                     )
                   })}

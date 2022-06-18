@@ -1,5 +1,5 @@
 import React, {useContext} from "react";
-import {Button, Stack} from "@mui/material";
+import {Button, Stack, Typography} from "@mui/material";
 import {Link} from "react-router-dom";
 import {observer} from "mobx-react";
 import {StoresContext} from "../../store/RootStore";
@@ -19,7 +19,7 @@ const OtherSurveyLinks = observer(() => {
                       component={Link}
                       to={`/survey/${item.code}`}
               >
-                {`${item.title} 테스트 하기`}
+                <Typography sx={{ fontFamily: 'Vitro_core'}}>{`${item.title} 테스트 하기`}</Typography>
               </Button>
             )
           })}

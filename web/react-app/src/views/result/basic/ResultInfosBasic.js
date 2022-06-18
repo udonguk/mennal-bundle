@@ -9,7 +9,8 @@ const ResultInfosBasic = observer(() => {
 
   return <>
     {surveyItemStore.surveyResult
-      && surveyItemStore.surveyResult.map(item => <ResultInfoBasic item={item}/>)}
+      && surveyItemStore.surveyResult.map((item, index) =>
+        <ResultInfoBasic index={index} item={item}/>)}
   </>
 })
 

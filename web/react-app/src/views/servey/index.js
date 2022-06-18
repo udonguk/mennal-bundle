@@ -27,7 +27,7 @@ const Survey = observer(() => {
           left: '50%',
           transform: 'translate(-50%, 0)',
           zIndex: 1050,
-          backgroundColor: 'rgba( 64, 64, 64, 0.2 )',
+          backgroundColor: 'rgba( 64, 64, 64, 0.7 )',
         }}
       >
         <LinearProgressWithLabel

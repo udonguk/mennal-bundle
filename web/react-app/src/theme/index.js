@@ -8,16 +8,24 @@ const themesOptions = [
     palette: {
       type: 'light',
       primary: {
-        main: '#000000',
+        main: '#3AB0FF',
+        light: '#8cccfb',
+        dark: '#0098ff',
       },
       secondary: {
-        main: '#671bf1',
+        main: '#FFB562',
       },
       info: {
         main: '#2196f3',
       },
       success: {
         main: '#4caf50',
+      },
+      background: {
+        default: '#F9F2ED',
+      },
+      error: {
+        main: '#F87474',
       },
     },
     typography: {

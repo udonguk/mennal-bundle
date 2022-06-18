@@ -11,7 +11,7 @@ import ResultInfos04 from "./04/ResultInfos04";
 
 const Result = observer(() => {
     const store = useContext(StoresContext);
-    const surveyItemStore = store.surveyItemStore;Ï
+    const surveyItemStore = store.surveyItemStore;
 
     return (<>
         <Box sx={{marginTop: 3}}>
