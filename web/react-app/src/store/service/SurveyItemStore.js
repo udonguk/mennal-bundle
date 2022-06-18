@@ -9,7 +9,7 @@ export class SurveyItemStore {
   surveyItems = []
   survey = {}
   isLoading = true
-  isResultLoading = false;
+  isResultLoading = true
   result = {
     categoryType: '',
     graphType: '',
@@ -145,12 +145,16 @@ export class SurveyItemStore {
   }
 
   sendSurvey(){
+    this.isResultLoading = true
     let param = []
     this.optionLooper((item) => {
       param.push(item.resultJson)
     })
     axiosToApi.post('/survey/option', param)
-      .then(res => this.result = res.data)
+      .then(res => {
+        this.result = res.data
+        this.isResultLoading = false
+      })
   }
 
   getTest() {

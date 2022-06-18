@@ -1,5 +1,5 @@
 import SurveyItem from "./component/ServeyItem";
-import {Stack, Typography} from "@mui/material";
+import {Box, CircularProgress, Stack} from "@mui/material";
 import React, {useContext, useLayoutEffect} from "react";
 import {observer} from "mobx-react";
 import {useLocation} from "react-router-dom";
@@ -35,7 +35,11 @@ const SurveyItems = observer(() => {
   }
   return (
     <>
-      {_.isNil(surveyItemStore.survey.surveySubCategories) && <Typography>Empty</Typography>}
+      {_.isNil(surveyItemStore.survey.surveySubCategories) &&
+        <Box sx={{ display: 'flex',justifyContent: 'center' }}>
+          <CircularProgress />
+        </Box>
+      }
       {!_.isNil(surveyItemStore.survey.surveySubCategories) &&
         <Stack spacing={1} pt={3} pb={1}>
           {getItems()}

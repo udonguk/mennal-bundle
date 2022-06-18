@@ -1,7 +1,7 @@
 import * as React from 'react'
 import './App.css';
 import DocsLayout from "./layouts/DocsLayout";
-import {Route, Routes, useLocation} from "react-router-dom";
+import {Route, Routes} from "react-router-dom";
 import Intro from "./views/intro";
 import {Box, CssBaseline, ThemeProvider} from "@mui/material";
 import Survey from "./views/servey";

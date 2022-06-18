@@ -1,6 +1,6 @@
-import {Box, Stack, Typography} from "@mui/material";
+import {Box, CircularProgress, Stack, Typography} from "@mui/material";
 import MyResponsiveRadar from "../../components/graph/MyResponsiveRadar";
-import React, {useContext} from "react";
+import React, {Suspense, useContext} from "react";
 import {observer} from "mobx-react";
 import {StoresContext} from "../../store/RootStore";
 import OtherSurveyLinks from "./OtherSurveyLinks";
@@ -11,34 +11,44 @@ import ResultInfos04 from "./04/ResultInfos04";
 
 const Result = observer(() => {
     const store = useContext(StoresContext);
-    const surveyItemStore = store.surveyItemStore;
+    const surveyItemStore = store.surveyItemStore;Ï
 
-    return (
-      <Box sx={{marginTop: 3}}>
-          <Typography variant={"h5"}>
-              {surveyItemStore.result.categoryType}
-          </Typography>
-          <Box maxWidth
-               height={300}
-          >
-              {'bar' === surveyItemStore.graphType
-                && <MyResponsiveBar data={surveyItemStore.barGraphFormat}
-                                    keys={surveyItemStore.barGraphKeys}/>}
+    return (<>
+        <Box sx={{marginTop: 3}}>
+          {surveyItemStore.isResultLoading ?
+            <Box sx={{ display: 'flex',justifyContent: 'center' }}>
+              <CircularProgress />
+            </Box>
+             :
+            <>
+              <Typography variant={"h5"}>
+                {surveyItemStore.result.categoryType}
+              </Typography>
+              <Box maxWidth
+                   height={300}
+              >
+                {'bar' === surveyItemStore.graphType
+                  && <MyResponsiveBar data={surveyItemStore.barGraphFormat}
+                                      keys={surveyItemStore.barGraphKeys}/>
+                }
 
-              {'range' === surveyItemStore.graphType
-                && <MyResponsiveRangeBar data={surveyItemStore.barRangeGraphFormat}
-                                         keys={surveyItemStore.barRangeGraphKeys}
-                                         maxValue={10}
-                />}
+                {'range' === surveyItemStore.graphType
+                  && <MyResponsiveRangeBar data={surveyItemStore.barRangeGraphFormat}
+                                           keys={surveyItemStore.barRangeGraphKeys}
+                                           maxValue={10}/>
+                }
 
-              {'radar' === surveyItemStore.graphType &&
-                <MyResponsiveRadar data={surveyItemStore.graphFormat}/>}
-          </Box>
-          <Stack spacing={1} pt={3} pb={1}>
-            {'자기조절능력' === surveyItemStore.result.categoryType ? <ResultInfos04 /> : <ResultInfosBasic />}
-          </Stack>
-          <OtherSurveyLinks/>
-      </Box>
+                {'radar' === surveyItemStore.graphType &&
+                  <MyResponsiveRadar data={surveyItemStore.graphFormat}/>}
+              </Box>
+              <Stack spacing={1} pt={3} pb={1}>
+                {'자기조절능력' === surveyItemStore.result.categoryType ? <ResultInfos04 /> : <ResultInfosBasic />}
+              </Stack>
+              <OtherSurveyLinks/>
+            </>
+          }
+        </Box>
+      </>
     )
   }
 )
