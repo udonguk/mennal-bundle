@@ -3,13 +3,14 @@ import {
   AppBar,
   Box,
   ButtonBase,
-  Container,
+  Container, Icon,
   IconButton,
   List,
   ListItem,
   ListItemIcon,
   ListItemText,
   styled,
+  SvgIcon,
   SwipeableDrawer,
   Toolbar,
   Typography
@@ -18,6 +19,7 @@ import MenuIcon from "@mui/icons-material/Menu";
 import {Link, Outlet} from "react-router-dom";
 import {observer} from "mobx-react";
 import {StoresContext} from "../../../../store/RootStore";
+import test from "../../../../resources/icons/free-animated-icon-checklist.png"
 import ArticleIcon from '@mui/icons-material/Article';
 
 
@@ -80,6 +82,9 @@ const Navbar = observer(() => {
                         to={`/survey/${item.code}`}
                       >
                         <ListItemIcon>
+                          {/*<Icon>*/}
+                          {/*  <img src={test} alt={'aaa'} style={{maxWidth: '100%', maxHeight: '100%'}}/>*/}
+                          {/*</Icon>*/}
                           <ArticleIcon />
                         </ListItemIcon>
                         <ListItemText disableTypography primary={<Typography color={"text.primary"}>{item.title}</Typography>}/>

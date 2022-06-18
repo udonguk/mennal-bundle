@@ -20,6 +20,9 @@ const themesOptions = [
         main: '#4caf50',
       },
     },
+    typography: {
+      fontFamily: 'GangwonEdu_OTFBoldA',
+    },
   },
   {
     name: THEMES.DARK,
@@ -37,6 +40,9 @@ const themesOptions = [
       success: {
         main: '#4caf50',
       },
+    },
+    typography: {
+      fontFamily: 'GangwonEdu_OTFBoldA',
     },
   }
 ]
