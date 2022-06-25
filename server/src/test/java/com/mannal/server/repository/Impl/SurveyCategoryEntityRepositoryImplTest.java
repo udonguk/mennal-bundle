@@ -44,6 +44,6 @@ class SurveyCategoryEntityRepositoryImplTest {
                 .from(qSurveyCategory)
                 .fetch();
 
-        assertThat(surveyCategories.size()).isEqualTo(2);
+        assertThat(surveyCategories.size()).isEqualTo(4);
     }
 }
