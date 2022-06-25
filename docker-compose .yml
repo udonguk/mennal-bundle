@@ -1,0 +1,22 @@
+version: '3'
+services:
+  nginx:
+    image: nginx:1.21.5-alpine
+    ports:
+      - 80:80
+    volumes:
+      - ./docker/server/proxy/nginx2/nginx.conf:/etc/nginx/nginx.conf
+    container_name: myweb-proxy
+    depends_on:
+      - web
+      - api
+  web:
+    image: frontend-web:latest
+    ports:
+      - 3000:3000
+    container_name: myweb-web
+  api:
+    image: backend-api:latest
+    ports:
+      - 8080:8080
+    container_name: myweb-api

@@ -40,6 +40,6 @@ public class Run {
 
         WebElement getResultButton =
                 driver.findElement(By.id("getResultButton"));
-        getResultButton.click();
+//        getResultButton.click();
     }
 }
