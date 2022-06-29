@@ -15,4 +15,5 @@ public class SurveyResultDto {
     String graphType;
     List<List<FactionDto>> factionList;
     List<SurveyResultEntity> resultList;
+    List<StatisticDto> statisticList;
 }

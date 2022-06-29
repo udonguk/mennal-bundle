@@ -6,5 +6,5 @@ import com.mannal.server.entity.survey.SurveyItemOptionResultEntity;
 import java.util.List;
 
 public interface SurveyItemOptionResultRepository {
-    List<SurveyItemOptionResultEntity> get(String categoryCode);
+    List<StatisticDto> get(String categoryCode);
 }

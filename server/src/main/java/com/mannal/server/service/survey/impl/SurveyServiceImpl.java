@@ -1,6 +1,7 @@
 package com.mannal.server.service.survey.impl;
 
 import com.mannal.server.dto.FactionDto;
+import com.mannal.server.dto.StatisticDto;
 import com.mannal.server.dto.SurveyResultDto;
 import com.mannal.server.entity.survey.*;
 import com.mannal.server.repository.*;
@@ -23,14 +24,18 @@ public class SurveyServiceImpl implements SurveyService {
 
     private final SurveyResultRepository surveyResultRepository;
 
+    private final SurveyItemOptionResultRepository surveyItemOptionResultRepository;
+
     public SurveyServiceImpl(SurveyCategoryRepository surveyCategoryRepository,
                              SurveyRepository surveyRepository,
                              SurveyItemOptionRepository surveyItemOptionRepository,
-                             SurveyResultRepository surveyResultRepository) {
+                             SurveyResultRepository surveyResultRepository,
+                             SurveyItemOptionResultRepository surveyItemOptionResultRepository) {
         this.surveyCategoryRepository = surveyCategoryRepository;
         this.surveyRepository = surveyRepository;
         this.surveyItemOptionRepository = surveyItemOptionRepository;
         this.surveyResultRepository = surveyResultRepository;
+        this.surveyItemOptionResultRepository = surveyItemOptionResultRepository;
     }
 
     @Override
@@ -85,12 +90,15 @@ public class SurveyServiceImpl implements SurveyService {
             factionDtoList.add(dtoList);
         });
 
+        List<StatisticDto> statisticList = surveyItemOptionResultRepository.get(surveyEntity.getCode());
+
         return SurveyResultDto.builder()
                 .graphType(surveyEntity.getGraphType())
                 .factionList(factionDtoList)
                 .resultList(resultList)
                 .categoryId(surveyEntity.getId())
                 .categoryType(surveyEntity.getTitle())
+                .statisticList(statisticList)
                 .build();
     }
 
