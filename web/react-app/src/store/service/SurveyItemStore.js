@@ -42,11 +42,16 @@ export class SurveyItemStore {
   get barGraphFormat () {
     return this.result.factionList.map(item => {
       let faction = {}
+      let totalScore = 0
+
+      item.forEach(item2 => totalScore += item2.score)
+
       item.forEach(item2 => {
         faction.title = _.isNil(faction.title) ? item2.resultType : `${faction.title}|${item2.resultType}`
-        faction[item2.resultType] = item2.score
+        faction[item2.resultType] = (item2.score / totalScore) * 10
       })
       console.debug('faction', faction)
+
       return faction
     })
   }

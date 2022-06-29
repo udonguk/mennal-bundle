@@ -17,7 +17,7 @@ public class Run {
         Dimension dimension =new Dimension(414, 896);
         driver.manage().window().setSize(dimension);
         // 브라우저 띄우기
-        driver.get("http://www.mennal.co.kr");
+        driver.get("http://localhost:85");
 
         // 이름 가져오기
         String title = driver.getTitle();

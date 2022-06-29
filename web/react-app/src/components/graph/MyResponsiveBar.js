@@ -61,7 +61,7 @@ const MyResponsiveBar = ({data, keys}) => (
       tickSize: 5,
       tickPadding: 5,
       tickRotation: 0,
-      legend: 'score',
+      // legend: 'score',
       legendPosition: 'middle',
       legendOffset: 32
     }}
