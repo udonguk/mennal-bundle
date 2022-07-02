@@ -57,14 +57,12 @@ export class SurveyItemStore {
   }
 
   get primaryFactions () {
-    console.debug('list', this.result.factionList)
     return this.result.factionList.map(item => {
       let primaryFaction = {}
       item.forEach(item2 => {
         if(_.isEmpty(primaryFaction)){
           primaryFaction = item2
         }
-        console.debug('item2', item2)
         if(item2.score > primaryFaction.score){
             primaryFaction = item2
         }
@@ -86,8 +84,6 @@ export class SurveyItemStore {
       return faction
     })
 
-    console.log(result)
-
     return result
   }
 
@@ -98,7 +94,6 @@ export class SurveyItemStore {
         item.forEach(item2 => result.push(item2.resultType))
     })
 
-    console.debug('keys', result)
     return result
   }
 
@@ -112,17 +107,12 @@ export class SurveyItemStore {
         })
     })
 
-    console.log('keys', result)
     return result
   }
 
   get graphFormat () {
-    console.debug('format', this.result)
     return this.result.factionList.map(item => {
-      return {
-        score: item.score,
-        faction: item.faction
-      }
+      return { score: item.score, faction: item.faction}
     })
   }
 

@@ -1,6 +1,6 @@
-import {Box, Card, CardContent, CircularProgress, Divider, Grid, Stack, Typography} from "@mui/material";
+import {Box, CircularProgress, Stack, Typography} from "@mui/material";
 import MyResponsiveRadar from "../../components/graph/MyResponsiveRadar";
-import React, {useContext, useMemo} from "react";
+import React, {useContext} from "react";
 import {observer} from "mobx-react";
 import {StoresContext} from "../../store/RootStore";
 import OtherSurveyLinks from "./OtherSurveyLinks";
@@ -13,10 +13,6 @@ import Statistic from "./Statistic";
 const Result = observer(() => {
     const store = useContext(StoresContext);
     const surveyItemStore = store.surveyItemStore;
-
-    useMemo(() => {
-      console.debug('aaaaa',surveyItemStore.primaryFactions)
-    }, [surveyItemStore.primaryFactions])
 
     return (<>
         <Box sx={{marginTop: 3}}>
