@@ -90,7 +90,17 @@ public class SurveyServiceImpl implements SurveyService {
             factionDtoList.add(dtoList);
         });
 
-        List<StatisticDto> statisticList = surveyItemOptionResultRepository.get(surveyEntity.getCode());
+        List<StatisticDto> statisticList = null;
+        switch (surveyEntity.getGraphType()) {
+            case "range":
+                statisticList = surveyItemOptionResultRepository.getRangeStatistic(surveyEntity.getCode());
+                break;
+            case "bar":
+                statisticList = surveyItemOptionResultRepository.getBarStatistic(surveyEntity.getCode());
+                break;
+            default:
+                statisticList = null;
+        }
 
         return SurveyResultDto.builder()
                 .graphType(surveyEntity.getGraphType())

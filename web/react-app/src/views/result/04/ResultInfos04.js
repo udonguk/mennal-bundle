@@ -44,9 +44,9 @@ const ResultInfos04 = observer(() => {
         </CardContent>
       </Card>
       <Divider />
-      {titleList.map(title => {
+      {titleList.map((title, index) => {
         return (
-            <Card variant="outlined">
+            <Card variant="outlined" key={`result_${index}`}>
               <CardHeader title={title}/>
               <CardContent>
                 <Grid container
@@ -61,11 +61,11 @@ const ResultInfos04 = observer(() => {
                           justifyContent="center"
                           alignItems="center"
                     >
-                      {surveyResult.map(result => {
+                      {surveyResult.map((result, index2) => {
                         if(title === result.title){
                           return (
                             <Grid item>
-                              <Card variant="outlined">
+                              <Card variant="outlined" key={`result_sub_${index2}`}>
                                 <CardContent>
                                   <Grid container direction="row" >
                                     <Grid item>

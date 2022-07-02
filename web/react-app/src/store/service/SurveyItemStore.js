@@ -15,7 +15,8 @@ export class SurveyItemStore {
     graphType: '',
     orderNum: 0,
     factionList: [],
-    resultList: []
+    resultList: [],
+    statisticList: [],
   }
 
   get surveyResult () {
@@ -50,9 +51,25 @@ export class SurveyItemStore {
         faction.title = _.isNil(faction.title) ? item2.resultType : `${faction.title}|${item2.resultType}`
         faction[item2.resultType] = (item2.score / totalScore) * 10
       })
-      console.debug('faction', faction)
 
       return faction
+    })
+  }
+
+  get primaryFactions () {
+    console.debug('list', this.result.factionList)
+    return this.result.factionList.map(item => {
+      let primaryFaction = {}
+      item.forEach(item2 => {
+        if(_.isEmpty(primaryFaction)){
+          primaryFaction = item2
+        }
+        console.debug('item2', item2)
+        if(item2.score > primaryFaction.score){
+            primaryFaction = item2
+        }
+      })
+      return primaryFaction.faction
     })
   }
 

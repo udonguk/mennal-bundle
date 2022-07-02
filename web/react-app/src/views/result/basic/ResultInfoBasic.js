@@ -3,7 +3,7 @@ import React from "react";
 import {observer} from "mobx-react";
 
 const ResultInfoBasic = observer(({index, item}) => {
-  return <Card variant={"outlined"}>
+  return <Card variant={"outlined"} key={`result_${index}`}>
     <CardHeader title={item.title}
                 avatar={<Avatar variant={'rounded'}
                                 sx={{ width: 24, height: 24 }}>{index + 1}</Avatar>}/>

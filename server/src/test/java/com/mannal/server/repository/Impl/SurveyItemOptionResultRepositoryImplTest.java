@@ -1,9 +1,7 @@
 package com.mannal.server.repository.Impl;
 
 import com.mannal.server.dto.StatisticDto;
-import com.mannal.server.entity.survey.SurveyCategoryEntity;
 import com.mannal.server.entity.survey.SurveyItemOptionResultEntity;
-import com.querydsl.core.Tuple;
 import com.querydsl.core.types.Projections;
 import com.querydsl.core.types.dsl.CaseBuilder;
 import com.querydsl.jpa.impl.JPAQuery;
@@ -26,8 +24,6 @@ import static com.mannal.server.entity.survey.QSurveyItemEntity.surveyItemEntity
 import static com.mannal.server.entity.survey.QSurveyItemOptionEntity.surveyItemOptionEntity;
 import static com.mannal.server.entity.survey.QSurveyItemOptionResultEntity.surveyItemOptionResultEntity;
 import static com.mannal.server.entity.survey.QSurveySubCategoryEntity.surveySubCategoryEntity;
-
-import static org.junit.jupiter.api.Assertions.*;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 
@@ -69,7 +65,31 @@ class SurveyItemOptionResultRepositoryImplTest {
                 .innerJoin(surveyItemOptionEntity.surveyItemEntity, surveyItemEntity)
                 .innerJoin(surveyItemEntity.surveySubCategoryEntity, surveySubCategoryEntity)
                 .innerJoin(surveySubCategoryEntity.surveyEntity, surveyEntity)
-                .on(surveyEntity.code.eq("01"))
+                .on(surveyEntity.code.eq("02"))
+                .groupBy(surveyItemOptionEntity.optionType)
+                .fetch();
+
+        assertThat(result.size()).isGreaterThan(0);
+    }
+
+    @Test
+    void getRangeStatistic() {
+        EntityManager em = jpaQueryFactory.createEntityManager();
+        JPAQuery<SurveyItemOptionResultEntity> jpaQuery = new JPAQuery<>(em);
+        List<StatisticDto> result = jpaQuery
+                .select(Projections.constructor(StatisticDto.class
+                        , surveyItemOptionEntity.optionType
+                        , surveyItemOptionEntity.optionType.count()
+                        , surveyItemOptionEntity.score.sum()
+                        , surveyItemOptionEntity.optionType.count().subtract(surveyItemOptionEntity.score.sum()).intValue()
+                ))
+                .from(surveyItemOptionResultEntity)
+                .innerJoin(surveyItemOptionResultEntity.surveyItemOptionEntity, surveyItemOptionEntity)
+                .on(surveyItemOptionResultEntity.checked.eq("Y"))
+                .innerJoin(surveyItemOptionEntity.surveyItemEntity, surveyItemEntity)
+                .innerJoin(surveyItemEntity.surveySubCategoryEntity, surveySubCategoryEntity)
+                .innerJoin(surveySubCategoryEntity.surveyEntity, surveyEntity)
+                .on(surveyEntity.code.eq("02"))
                 .groupBy(surveyItemOptionEntity.optionType)
                 .fetch();
 

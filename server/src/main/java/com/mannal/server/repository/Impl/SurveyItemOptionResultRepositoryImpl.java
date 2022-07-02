@@ -28,7 +28,7 @@ public class SurveyItemOptionResultRepositoryImpl extends QuerydslRepositorySupp
     }
 
     @Override
-    public List<StatisticDto> get(String categoryCode) {
+    public List<StatisticDto> getBarStatistic(String categoryCode) {
         return jpaQueryFactory.select(Projections.constructor(StatisticDto.class
                         , surveyItemOptionEntity.optionType
                         , surveyItemOptionEntity.optionType.count()
@@ -43,6 +43,25 @@ public class SurveyItemOptionResultRepositoryImpl extends QuerydslRepositorySupp
                 ))
                 .from(surveyItemOptionResultEntity)
                 .innerJoin(surveyItemOptionResultEntity.surveyItemOptionEntity, surveyItemOptionEntity)
+                .innerJoin(surveyItemOptionEntity.surveyItemEntity, surveyItemEntity)
+                .innerJoin(surveyItemEntity.surveySubCategoryEntity, surveySubCategoryEntity)
+                .innerJoin(surveySubCategoryEntity.surveyEntity, surveyEntity)
+                .on(surveyEntity.code.eq(categoryCode))
+                .groupBy(surveyItemOptionEntity.optionType)
+                .fetch();
+    }
+
+    @Override
+    public List<StatisticDto> getRangeStatistic(String categoryCode) {
+        return jpaQueryFactory.select(Projections.constructor(StatisticDto.class
+                        , surveyItemOptionEntity.optionType
+                        , surveyItemOptionEntity.optionType.count()
+                        , surveyItemOptionEntity.score.sum()
+                        , surveyItemOptionEntity.optionType.count().subtract(surveyItemOptionEntity.score.sum()).intValue()
+                ))
+                .from(surveyItemOptionResultEntity)
+                .innerJoin(surveyItemOptionResultEntity.surveyItemOptionEntity, surveyItemOptionEntity)
+                .on(surveyItemOptionResultEntity.checked.eq("Y"))
                 .innerJoin(surveyItemOptionEntity.surveyItemEntity, surveyItemEntity)
                 .innerJoin(surveyItemEntity.surveySubCategoryEntity, surveySubCategoryEntity)
                 .innerJoin(surveySubCategoryEntity.surveyEntity, surveyEntity)
